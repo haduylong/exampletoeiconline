@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/views/admin/admin.jsp").forward(req, resp);
+		req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
 	}
 	
 	@Override

@@ -33,10 +33,11 @@ public class LoginController extends HttpServlet {
 		UserService userService = new UserServiceImpl();
 		if(userService.isUserExist(pojo) != null) {
 			if(userService.findRoleByUser(pojo).getRoleDTO().getName().equalsIgnoreCase(WebConstant.ROLE_ADMIN)) {
-
-				req.getRequestDispatcher("/views/admin/admin.jsp").forward(req, resp);
+				System.out.println("ADMIN");
+				//req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
+				resp.sendRedirect("admin-home.html");
 			}else {
-				req.getRequestDispatcher("/views/web/web.jsp").forward(req, resp);
+				req.getRequestDispatcher("/views/web/home.jsp").forward(req, resp);
 			}
 		}else{
 			System.out.println("fail");

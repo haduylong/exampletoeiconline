@@ -24,7 +24,7 @@
   </properties>
 
   <dependencies>
-  	<dependency>
+	<dependency>
   		<groupId>vn.myclass</groupId>
   		<artifactId>toeic-web-logic</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
@@ -35,7 +35,7 @@
   		<artifactId>toeic-core-persistence-data</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
-  	
+	  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
