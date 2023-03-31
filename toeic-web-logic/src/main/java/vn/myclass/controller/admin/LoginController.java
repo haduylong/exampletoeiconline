@@ -37,7 +37,9 @@ public class LoginController extends HttpServlet {
 				//req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
 				resp.sendRedirect("admin-home.html");
 			}else {
-				req.getRequestDispatcher("/views/web/home.jsp").forward(req, resp);
+				//req.getRequestDispatcher("/views/web/home.jsp").forward(req, resp);
+				System.out.println("USER");
+				resp.sendRedirect("home.html");
 			}
 		}else{
 			System.out.println("fail");

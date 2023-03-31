@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDTO isUserExist(UserDTO dto) {
 		UserDao dao = new UserDaoImpl();// dao thao tác với entity
-		UserEntity entity = dao.isUserExist(dto.getName(), dto.getPassWord());
+		UserEntity entity = dao.findUserByUsernameAndPassword(dto.getName(), dto.getPassWord());
 		if(entity == null) {
 			return null; // nếu entity null thì ko convert đc nên return luôn về null
 		}
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDTO findRoleByUser(UserDTO dto) {
 		UserDao dao = new UserDaoImpl();
-		UserEntity entity = dao.isUserExist(dto.getName(), dto.getPassWord());
+		UserEntity entity = dao.findUserByUsernameAndPassword(dto.getName(), dto.getPassWord());
 		if(entity == null) {
 			return null; // nếu entity null thì ko convert đc nên return luôn về null
 		}

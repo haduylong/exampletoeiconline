@@ -106,7 +106,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 	}
 
 	@Override
-	public Object[] findByProperty(String property, Object value, String sortExpression, String sortDirection) {
+	public Object[] findByProperty(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit) {
 		List<T> list = new ArrayList<>();
 		Integer totalItem = 0;
 		Session session = this.getSession();
@@ -118,15 +118,24 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 				sql.append(" where ").append(property).append("= :value ");
 			}
 			if(sortDirection != null && sortExpression != null) {
-				sql.append(" order by ").append(sortExpression).append(sortDirection.equals(CoreConstant.SORT_ASC)?"asc":"desc");
+				sql.append(" order by ").append(sortExpression).append(sortDirection.equals(CoreConstant.SORT_ASC)?" asc ":" desc ");
 			}
 			Query<T> query = session.createQuery(sql.toString());
 			if(value != null) {
 				query.setParameter("value", value);
 			}
-			
+			if(offset!=null && offset>= 0) {
+				query.setFirstResult(offset);
+			}
+			if(limit!=null && limit>0) {
+				query.setMaxResults(limit);
+			}
 			list = query.list();
-			totalItem = list.size();
+			// lấy ra size tối đa
+			StringBuilder sql2 = new StringBuilder("SELECT count(*)  from ");
+			sql2.append(this.getPersistenceClassName());
+			Query<T> query2 = session.createQuery(sql.toString());
+			totalItem = query2.list().size();
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
