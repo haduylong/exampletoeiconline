@@ -3,7 +3,9 @@ package vn.myclass.core.data.daoimpl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.ObjectNotFoundException;
@@ -106,24 +108,43 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 	}
 
 	@Override
-	public Object[] findByProperty(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit) {
-		List<T> list = new ArrayList<>();
-		Integer totalItem = 0;
+	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {	
 		Session session = this.getSession();
 		Transaction transaction = session.beginTransaction();
+		
+		List<T> list = new ArrayList<>();
+		Long totalItem = (long) 0;
+		String[] params = new String[property.size()];
+		Object[] values = new Object[property.size()];
+		// add các thuộc tính trong map và mảng
+		int i = 0;
+		for(Map.Entry item : property.entrySet()) {
+			params[i] = (String) item.getKey();
+			values[i] = item.getValue();
+			i++;
+		}
 		try {
-			StringBuilder sql = new StringBuilder(" from ");
-			sql.append(this.getPersistenceClassName());
-			if(property != null && value != null) {
-				sql.append(" where ").append(property).append("= :value ");
+			StringBuilder sql1 = new StringBuilder(" from ");
+			sql1.append(this.getPersistenceClassName());
+			// thêm thuộc tính truy vấn
+			if(property.size() > 0) {
+				sql1.append(" where ").append(params[0]).append("= :"+params[0]+" ");
+				for(int i1=1; i1<params.length; i1++) {
+					sql1.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
+				}
 			}
 			if(sortDirection != null && sortExpression != null) {
-				sql.append(" order by ").append(sortExpression).append(sortDirection.equals(CoreConstant.SORT_ASC)?" asc ":" desc ");
+				sql1.append(" order by ").append(sortExpression).append(sortDirection.equals(CoreConstant.SORT_ASC)?" asc ":" desc ");
 			}
-			Query<T> query = session.createQuery(sql.toString());
-			if(value != null) {
-				query.setParameter("value", value);
+			Query query = session.createQuery(sql1.toString());
+			// set value cho các thuộc tính truy vấn
+			if(property.size() > 0) {
+				query.setParameter(params[0], values[0]);
+				for(int i1=1; i1<values.length; i1++) {
+					query.setParameter(params[i1], values[i1]);
+				}
 			}
+			// vị trí hàng bắt đầu và giới hạn list trả về
 			if(offset!=null && offset>= 0) {
 				query.setFirstResult(offset);
 			}
@@ -131,11 +152,29 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 				query.setMaxResults(limit);
 			}
 			list = query.list();
+			
 			// lấy ra size tối đa
-			StringBuilder sql2 = new StringBuilder("SELECT count(*)  from ");
+			StringBuilder sql2 = new StringBuilder(" select count(*) from ");
 			sql2.append(this.getPersistenceClassName());
-			Query<T> query2 = session.createQuery(sql.toString());
-			totalItem = query2.list().size();
+			// thêm thuộc tính truy vấn
+			if(property.size() > 0) {
+				sql2.append(" where ").append(params[0]).append("= :"+params[0]+" ");
+				for(int i1=1; i1<params.length; i1++) {
+					sql2.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
+				}
+			}
+			
+			Query query2 = session.createQuery(sql2.toString());
+			
+			// set value cho các thuộc tính truy vấn
+			if(property.size() > 0) {
+				query2.setParameter(params[0], values[0]);
+				for(int i1=1; i1<values.length; i1++) {
+					query2.setParameter(params[i1], values[i1]);
+				}
+			}
+			
+			totalItem = (Long) query2.list().get(0);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();

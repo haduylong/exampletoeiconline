@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="requestUrl" value="/admin-guideline-listen-list.html" /> <!-- gọi lại url khi chọn bảng trang khác -->
+<c:url var="listenGuideLineEditUrl" value="/admin-guideline-listen-edit.html">
+	<c:param name="urlType" value="url_edit" />
+</c:url>
 <html>
 <head>
     <title><fmt:message key="label.guideline.listen.list" bundle="${lang}"/></title>
@@ -24,6 +27,7 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-xs-12">
+                <a href="${listenGuideLineEditUrl }">edit table</a>
                     <div class="table-responsive">
                         <fmt:bundle basename="ApplicationResources">
                             <display:table id="tableList" name="items.listResult" partialList="true" size="${items.totalItems}"

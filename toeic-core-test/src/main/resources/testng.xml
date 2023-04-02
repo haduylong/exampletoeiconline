@@ -4,6 +4,8 @@
   <test name="case1">  
     <classes>  
       <class name="vn.myclass.core.test.RoleTest" />
+      <class name="vn.myclass.core.test.ListenGuidelineTest" />
+      <class name="vn.myclass.core.test.LoginTest" />
     </classes>  
   </test> <!-- Test -->  
 </suite> <!-- Suite -->  

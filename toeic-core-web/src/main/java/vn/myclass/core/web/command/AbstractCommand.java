@@ -16,7 +16,7 @@ public class AbstractCommand<T> {
     private String[] checkList;// check list: khi tích chọn sẽ lưu id của item vào 
     private String messageResponse;// message respense
     private int page = 1;// bảng trang đầu tiên là 1
-    private String urlType;// url type
+    private String urlType;// tên url type truyền lên tuef jsp
     private int totalPages;// số bảng trang
 	
 	
