@@ -44,16 +44,17 @@ public class ListenGuideLineController extends HttpServlet {
 //		/// tao list dto	
 //		// set các thuộc tính phân trang
 //		command.setMaxPageItems(3);
-//		// hỗ trợ phân trang bằng cách set các thuộc tính cho command
-//		RequestUtil.initSearchBean(req, command); // SortExpression, SortDirection, page, FirstItem
+		// hỗ trợ phân trang bằng cách set các thuộc tính cho command 
+		RequestUtil.initSearchBean(req, command); // SortExpression, SortDirection, page, FirstItem
 //		// lấy các dto lên theo đúng yêu cầu phân trang
-//		Object[] objects = listenGuideLineService.findByProperty(null, null, command.getSortExpression(), command.getSortDirection(), 
-//																command.getFirstItem(), command.getMaxPageItems());
-//		
-//		command.setListResult((List<ListenGuideLineDTO>)objects[1]);
-//		
-//		
-//		command.setTotalItems(Integer.parseInt(objects[0].toString()));
+		Map<String, Object> map = new HashMap<>();
+		Object[] objects = listenGuideLineService.findByProperty(map, command.getSortExpression(), command.getSortDirection(), 
+																command.getFirstItem(), command.getMaxPageItems());
+		
+		command.setListResult((List<ListenGuideLineDTO>)objects[1]);
+		
+		
+		command.setTotalItems(Integer.parseInt(objects[0].toString()));
 		if(session != null) {
 			req.setAttribute(WebConstant.ALERT, session.getAttribute(WebConstant.ALERT));
 			req.setAttribute(WebConstant.MESSAGE_RESPONSE, session.getAttribute(WebConstant.MESSAGE_RESPONSE));

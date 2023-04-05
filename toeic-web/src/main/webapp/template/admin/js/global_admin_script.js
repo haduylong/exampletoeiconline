@@ -27,7 +27,7 @@ function enableOrDisableDeleteAll() {
     });
 }
 function autoCheckCheckboxAll(id) {
-    var totalCheckbox = $('#' +id).closest('table').find('tbody input[type=checkbox]').length;
+    var totalCheckbox = $('#' +id).closest('table').find('tbody input[type=checkbox]').length; // số checkbox ở tbody
     $('#' +id).closest('table').find('tbody input[type=checkbox]').each(function () {
          var tableObj = $('#' +id).closest('table');
          $(this).on('change', function () {

@@ -113,7 +113,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 		Transaction transaction = session.beginTransaction();
 		
 		List<T> list = new ArrayList<>();
-		Long totalItem = (long) 0;
+		Integer totalItem =  0;
 		String[] params = new String[property.size()];
 		Object[] values = new Object[property.size()];
 		// add các thuộc tính trong map và mảng
@@ -174,7 +174,8 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 				}
 			}
 			
-			totalItem = (Long) query2.list().get(0);
+//			totalItem = (Long) query2.list().get(0);
+			totalItem = Integer.parseInt(query2.list().get(0).toString());
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();

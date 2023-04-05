@@ -13,7 +13,7 @@ public class AbstractCommand<T> {
     private int firstItem = 0;// item đầu tiên của bảng trang
     private String sortExpression;// tên thuộc tính muốn chọn để sort
     private String sortDirection;// sort giảm dần hoặc tăng dần
-    private String[] checkList;// check list: khi tích chọn sẽ lưu id của item vào 
+    private String[] checkList;// check list: khi tích chọn sẽ lưu id của item vào (map với name='checkList')
     private String messageResponse;// message respense
     private int page = 1;// bảng trang đầu tiên là 1
     private String urlType;// tên url type truyền lên tuef jsp

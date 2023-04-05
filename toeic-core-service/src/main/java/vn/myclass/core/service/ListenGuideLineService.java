@@ -1,5 +1,7 @@
 package vn.myclass.core.service;
 
+import java.util.Map;
+
 public interface ListenGuideLineService {
-	public Object[] findByProperty(String property, Object value, String sortExpression, String sortDirection, Integer offset, Integer limit);
+	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit);
 }
