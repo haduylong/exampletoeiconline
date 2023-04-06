@@ -49,5 +49,12 @@ public class UserServiceImpl implements UserService{
 		return ob;
 	}
 
+	@Override
+	public UserDTO findById(Integer userId) {
+		UserEntity entity = dao.findById(userId);
+		UserDTO dto = UserBeanUtil.entity2Dto(entity);
+		return dto;
+	}
+
 
 }
