@@ -16,6 +16,7 @@ import vn.myclass.core.service.UserService;
 import vn.myclass.core.serviceimpl.UserServiceImpl;
 import vn.myclass.core.web.common.WebConstant;
 import vn.myclass.core.web.utils.FormUtil;
+import vn.myclass.core.web.utils.SingletonServiceUtil;
 
 @WebServlet("/login.html")
 public class LoginController extends HttpServlet {
@@ -30,13 +31,13 @@ public class LoginController extends HttpServlet {
 		// lấy tất cả các tham số lên cùng 1 lúc
 		UserCommand command = FormUtil.populate(UserCommand.class, req);
 		UserDTO pojo = command.getPojo();
-		UserService userService = new UserServiceImpl();
-		if(userService.isUserExist(pojo) != null) {
-			if(userService.findRoleByUser(pojo).getRoleDTO().getName().equalsIgnoreCase(WebConstant.ROLE_ADMIN)) {
+//		UserService userService = new UserServiceImpl();
+		if(SingletonServiceUtil.getUserServiceImplInstance().isUserExist(pojo) != null) {
+			if(SingletonServiceUtil.getUserServiceImplInstance().findRoleByUser(pojo).getRoleDTO().getName().equalsIgnoreCase(WebConstant.ROLE_ADMIN)) {
 				System.out.println("ADMIN");
 				//req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
 				resp.sendRedirect("admin-home.html");
-			}else {
+			}else if(SingletonServiceUtil.getUserServiceImplInstance().findRoleByUser(pojo).getRoleDTO().getName().equalsIgnoreCase(WebConstant.ROLE_USER)){
 				//req.getRequestDispatcher("/views/web/home.jsp").forward(req, resp);
 				System.out.println("USER");
 				resp.sendRedirect("home.html");

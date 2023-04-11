@@ -8,13 +8,14 @@ import vn.myclass.core.daoimpl.RoleDaoImpl;
 import vn.myclass.core.dto.RoleDTO;
 import vn.myclass.core.persistence.entity.RoleEntity;
 import vn.myclass.core.service.RoleService;
+import vn.myclass.core.serviceutils.SingletonDaoUtil;
 import vn.myclass.core.utils.RoleBeanUtil;
 
 public class RoleServiceImpl implements RoleService{
-	RoleDao dao = new RoleDaoImpl();
+//	RoleDao dao = new RoleDaoImpl();
 	@Override
 	public List<RoleDTO> findAll() {
-		List<RoleEntity> entities = dao.findAll();
+		List<RoleEntity> entities = SingletonDaoUtil.getRoleDaoImplInstance().findAll();
 		List<RoleDTO> dtos = new ArrayList<>();
 		for(RoleEntity item : entities) {
 			dtos.add(RoleBeanUtil.entity2Dto(item));
