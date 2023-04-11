@@ -1,5 +1,6 @@
 package vn.myclass.core.serviceimpl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,22 @@ public class UserServiceImpl implements UserService{
 	public UserDTO findById(Integer userId) {
 		UserEntity entity = dao.findById(userId);
 		UserDTO dto = UserBeanUtil.entity2Dto(entity);
+		return dto;
+	}
+
+	@Override
+	public void saveUser(UserDTO dto) {
+		Timestamp createdDate = new Timestamp(System.currentTimeMillis());
+		dto.setCreatedDate(createdDate);
+		UserEntity entity = UserBeanUtil.dto2Entity(dto);
+		dao.save(entity);
+	}
+
+	@Override
+	public UserDTO updateUser(UserDTO dto) {
+		UserEntity entity = UserBeanUtil.dto2Entity(dto);
+		entity = dao.update(entity);
+		dto = UserBeanUtil.entity2Dto(entity);
 		return dto;
 	}
 

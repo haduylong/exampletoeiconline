@@ -10,6 +10,7 @@ import vn.myclass.core.web.command.AbstractCommand;
 public class UserCommand extends AbstractCommand<UserDTO>{
 	private String confirmPassWord;
 	private List<RoleDTO> roles;
+	private Integer roleId;
 	
 	public UserCommand() {
 		this.pojo = new UserDTO();
@@ -30,5 +31,13 @@ public class UserCommand extends AbstractCommand<UserDTO>{
 
 	public void setConfirmPassWord(String confirmPassWord) {
 		this.confirmPassWord = confirmPassWord;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 }

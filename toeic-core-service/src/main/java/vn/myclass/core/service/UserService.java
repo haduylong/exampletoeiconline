@@ -9,4 +9,6 @@ public interface UserService {
 	public UserDTO findRoleByUser(UserDTO dto);
 	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit);
 	public UserDTO findById(Integer userId);
+	public void saveUser(UserDTO dto);
+	UserDTO updateUser(UserDTO dto);
 }
