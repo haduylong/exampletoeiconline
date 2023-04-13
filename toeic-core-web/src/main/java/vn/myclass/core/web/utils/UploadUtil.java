@@ -13,22 +13,23 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 
 import com.mysql.cj.util.StringUtils;
 
 public class UploadUtil {
 	private final int maxMemorySize = 3 * 1024 * 1024; // 3MB
 	private final int maxRequestSize = 50 * 1024 * 1024; // 50MB
-	
+	private final Logger log = Logger.getLogger(this.getClass());
 	// request : request
-	// Set<String> titleValue : tên thuộc tính pojo truyền từ form (name)
+	// Set<String> titleValue : tên thuộc tính pojo input hoặc tên input truyền từ form (name)
 	// path : đường dẫn muốn lưu
 	
-	public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) throws FileUploadException, Exception {
+	public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
 		// cải tiến
 		// nơi lưu trong image
 		ServletContext context = request.getServletContext();
-		String address = context.getRealPath("image");
+		String address = context.getRealPath("fileupload01");
 		boolean check = true; // kiem tra co upload dc ko
 		String localName = null;// link den file
 		String name = null;// ten file
@@ -50,33 +51,42 @@ public class UploadUtil {
 		upload.setSizeMax(maxRequestSize);
 
 		// Parse the request
-		List<FileItem> items = upload.parseRequest(request);
-		for(FileItem item : items) {
-			if(!item.isFormField()) {// nếu item là file
-				String fileName = item.getName(); /* lấy tên */ name = fileName;
-				if(org.apache.commons.lang.StringUtils.isNotBlank(name)) {
-					File uploadedFile = new File(address + File.separator + path + File.separator + fileName);// file den duong dan 
-					localName = address + File.separator + path + File.separator;
-								
-					boolean isExit = uploadedFile.exists(); // kiểm tra tồn tại
-					if(isExit) {
-						if(uploadedFile.delete()) {// kiểm tra xóa thành công hay ko
-							item.write(uploadedFile);
-						}else {
+		try {
+			List<FileItem> items = upload.parseRequest(request);
+			for(FileItem item : items) {
+				if(!item.isFormField()) {// nếu item là file
+					String fileName = item.getName(); /* lấy tên */ name = fileName;
+					if(org.apache.commons.lang.StringUtils.isNotBlank(name)) {
+						File uploadedFile = new File(address + File.separator + path + File.separator + fileName);// file den duong dan 
+						localName = address + File.separator + path + File.separator + fileName;
+									
+						boolean isExit = uploadedFile.exists(); // kiểm tra tồn tại
+						try {
+							if(isExit) {				
+								uploadedFile.delete(); // kiểm tra xóa thành công hay ko
+								item.write(uploadedFile);
+								check = false;
+							}else {
+								item.write(uploadedFile);
+							}
+						} catch (Exception e) {
 							check = false;
+							log.error(e.getMessage(), e);
 						}
-					}else {
-						item.write(uploadedFile);
+						
+					}
+				}else {// nếu item ko là file
+					String nameField = item.getFieldName();
+					String valueField = item.getString();
+					if(titleValue.contains(nameField)) {
+						mapReturnValue.put(nameField, valueField);
 					}
 				}
-			}else {// nếu item ko là file
-				String nameField = item.getFieldName();
-				String valueField = item.getString();
-				if(titleValue.contains(nameField)) {
-					mapReturnValue.put(nameField, valueField);
-				}
 			}
-		}
+		} catch (FileUploadException e) {
+			check = false;
+			log.error(e.getMessage(), e);
+		}		
 		
 		return new Object[] {check, localName, name, mapReturnValue};
 	}

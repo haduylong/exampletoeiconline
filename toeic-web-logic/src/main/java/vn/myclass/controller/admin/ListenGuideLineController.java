@@ -89,11 +89,7 @@ public class ListenGuideLineController extends HttpServlet {
 			
 			session.setAttribute(WebConstant.ALERT, WebConstant.TYPE_SUCCESS);
 			session.setAttribute(WebConstant.MESSAGE_RESPONSE, bundle.getString("label.guideline.listen.add.success"));
-		} catch (FileUploadException e) {
-			log.error(e.getMessage(), e);
-			session.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);
-			session.setAttribute(WebConstant.MESSAGE_RESPONSE, bundle.getString("label.error"));
-		}catch (Exception e) {
+		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			session.setAttribute(WebConstant.ALERT,  WebConstant.TYPE_ERROR);
 			session.setAttribute(WebConstant.MESSAGE_RESPONSE, bundle.getString("label.error"));
