@@ -25,6 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import vn.myclass.command.UserCommand;
 import vn.myclass.core.common.utils.ExcelPoiUtil;
+import vn.myclass.core.common.utils.SessionUtil;
 import vn.myclass.core.dto.RoleDTO;
 import vn.myclass.core.dto.UserDTO;
 import vn.myclass.core.dto.UserImportDTO;
@@ -39,12 +40,14 @@ import vn.myclass.core.web.utils.SingletonServiceUtil;
 import vn.myclass.core.web.utils.UploadUtil;
 import vn.myclass.core.web.utils.WebCommonUtil;
 
-@WebServlet(urlPatterns = {"/admin-user-list.html", "/ajax-admin-user-edit.html", "/admin-user-import-list.html",
+@WebServlet(urlPatterns = {"/admin-user-list.html", "/ajax-admin-user-edit.html",
 							"/admin-user-import.html", "/admin-user-import-validate.html"})
 public class UserController extends HttpServlet {
 	private final Logger log = Logger.getLogger(this.getClass());
 	private final String SHOW_IMPORT_USER = "show_import_user";
 	private final String READ_EXCEL = "read_excel";
+	private final String VALIDATE_IMPORT = "validate_import";
+	private final String LIST_USER_IMPORT = "list_user_import";
 	ResourceBundle bundle = ResourceBundle.getBundle("ApplicationResources");
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -81,6 +84,11 @@ public class UserController extends HttpServlet {
 			req.getRequestDispatcher("/views/admin/user/edit.jsp").forward(req, resp);
 		}else if(command.getUrlType().equalsIgnoreCase(SHOW_IMPORT_USER)) {
 			req.getRequestDispatcher("/views/admin/user/importuser.jsp").forward(req, resp);
+		}else if(command.getUrlType().equalsIgnoreCase(VALIDATE_IMPORT)) {
+			List<UserImportDTO> userImportDTOs = (List<UserImportDTO>) SessionUtil.getInstance().getValue(req, LIST_USER_IMPORT);
+			command.setUserImportDTOs(userImportDTOs);
+			req.setAttribute(WebConstant.LIST_ITEMS, command); // gửi xuống để hiển thị
+			req.getRequestDispatcher("/views/admin/user/importuser.jsp").forward(req, resp);
 		}
 		
 	}
@@ -93,6 +101,8 @@ public class UserController extends HttpServlet {
 		mapMessage.put(WebConstant.REDIRECT_ERROR, bundle.getString("label.message.error"));
 		return mapMessage;
 	}
+	
+	
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -120,6 +130,7 @@ public class UserController extends HttpServlet {
 						req.setAttribute(WebConstant.MESSAGE_RESPONSE, WebConstant.REDIRECT_INSERT);
 					}
 				}
+				req.getRequestDispatcher("/views/admin/user/edit.jsp").forward(req, resp);
 			}
 			//-, đọc file
 			if(objects!=null) {
@@ -135,6 +146,8 @@ public class UserController extends HttpServlet {
 					String fileLocation = objects[1].toString();
 					String fileName = objects[2].toString();				
 					List<UserImportDTO> excelValues = returnValuesFromExcel(fileName, fileLocation);
+					SessionUtil.getInstance().putValue(req, LIST_USER_IMPORT , excelValues); // put value into session
+					resp.sendRedirect("/admin-user-import-validate.html?urlType=validate_import");
 				}
 			}
 		} catch (Exception e) {
@@ -143,7 +156,6 @@ public class UserController extends HttpServlet {
 		}
 		
 		
-		req.getRequestDispatcher("/views/admin/user/edit.jsp").forward(req, resp);
 	}
 
 	private List<UserImportDTO> returnValuesFromExcel(String fileName, String fileLocation) throws IOException {
