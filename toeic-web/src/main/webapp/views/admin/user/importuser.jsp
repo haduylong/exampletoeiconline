@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
-<c:url var="importExcel" value="/admin-user-import.html"/>
+<c:url var="validateExcel" value="/admin-user-import-validate.html"/>
 <html>
 <head>
     <title><fmt:message key="label.user.import.excel" bundle="${lang}"/></title>
@@ -33,18 +33,18 @@
                                 ${messageResponse}
                         </div>
                     </c:if>
-                    <form action="${importExcel}" method="post" enctype="multipart/form-data">
+                    <form action="${validateExcel}" method="post" enctype="multipart/form-data" id="formImport">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="col-sm-12">
                                     <input type="file" name="file"/>
                                     <br/>
-                                    <%--<button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="validateData">
+                                    <button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="validateData">
                                         <fmt:message key="label.file.validate.import" bundle="${lang}"/>
-                                    </button>--%>
-                                    <button type="submit" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold">
-                                       Read file excel
                                     </button>
+                                    <!-- <button type="submit" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold">
+                                       Read file excel
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -55,5 +55,20 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    $('#validateData').click(function () {
+        $('#urlType').val('read_excel');
+        $('#formImport').submit();
+    });
+    $('#importData').click(function () {
+        $('#urlType').val('import_data');
+        $('#formImport').prop('enctype', false);
+        $('#formImport').attr('action', '${importExcel}');
+        $('#formImport').submit();
+    });
+});
+</script>
 </body>
 </html>

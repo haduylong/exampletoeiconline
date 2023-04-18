@@ -3,6 +3,7 @@ package vn.myclass.controller.admin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,8 +24,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import vn.myclass.command.UserCommand;
+import vn.myclass.core.common.utils.ExcelPoiUtil;
 import vn.myclass.core.dto.RoleDTO;
 import vn.myclass.core.dto.UserDTO;
+import vn.myclass.core.dto.UserImportDTO;
 import vn.myclass.core.service.RoleService;
 import vn.myclass.core.service.UserService;
 import vn.myclass.core.serviceimpl.RoleServiceImpl;
@@ -37,13 +40,11 @@ import vn.myclass.core.web.utils.UploadUtil;
 import vn.myclass.core.web.utils.WebCommonUtil;
 
 @WebServlet(urlPatterns = {"/admin-user-list.html", "/ajax-admin-user-edit.html", "/admin-user-import-list.html",
-							"/admin-user-import.html"})
+							"/admin-user-import.html", "/admin-user-import-validate.html"})
 public class UserController extends HttpServlet {
 	private final Logger log = Logger.getLogger(this.getClass());
 	private final String SHOW_IMPORT_USER = "show_import_user";
 	private final String READ_EXCEL = "read_excel";
-//	UserService userService = new UserServiceImpl();
-//	RoleService roleService = new RoleServiceImpl();
 	ResourceBundle bundle = ResourceBundle.getBundle("ApplicationResources");
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -101,6 +102,7 @@ public class UserController extends HttpServlet {
 		Object[] objects = uploadUtil.writeOrUpdateFile(req, setValue, "excel");
 		try {
 			UserCommand command = FormUtil.populate(UserCommand.class, req);
+			// -, vào page eidt
 			if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_EDIT)) {
 				if(command.getCrudaction()!= null && command.getCrudaction().equals(WebConstant.INSERT_UPDATE)) {
 					UserDTO pojo = command.getPojo();
@@ -119,6 +121,7 @@ public class UserController extends HttpServlet {
 					}
 				}
 			}
+			//-, đọc file
 			if(objects!=null) {
 				String urlType = null;
 				Map<String, String> mapValue = (Map<String, String>) objects[3];
@@ -127,15 +130,11 @@ public class UserController extends HttpServlet {
 						urlType = item.getValue();
 					}
 				}
+				
 				if(urlType!=null && urlType.equals(READ_EXCEL)) {
 					String fileLocation = objects[1].toString();
-					FileInputStream excelFile = new FileInputStream(new File(fileLocation));
-					Workbook workbook = new XSSFWorkbook(excelFile);
-					Sheet sheet = workbook.getSheetAt(0);
-					for(int i=1;i<sheet.getLastRowNum();i++) {
-						Row row = sheet.getRow(i);
-						System.out.println(row.getCell(0)+"_"+row.getCell(1));
-					}
+					String fileName = objects[2].toString();				
+					List<UserImportDTO> excelValues = returnValuesFromExcel(fileName, fileLocation);
 				}
 			}
 		} catch (Exception e) {
@@ -146,4 +145,28 @@ public class UserController extends HttpServlet {
 		
 		req.getRequestDispatcher("/views/admin/user/edit.jsp").forward(req, resp);
 	}
+
+	private List<UserImportDTO> returnValuesFromExcel(String fileName, String fileLocation) throws IOException {
+		Workbook workbook = ExcelPoiUtil.getWorkbook(fileName, fileLocation); 
+		Sheet sheet = workbook.getSheetAt(0);
+		List<UserImportDTO> excelValues = new ArrayList<>();
+		for(int i=1; i<=sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			UserImportDTO userImportDTO = readDataFromExcel(row);
+			excelValues.add(userImportDTO);
+		}
+		return excelValues;
+	}
+
+	private UserImportDTO readDataFromExcel(Row row) {
+		UserImportDTO userImportDTO = new UserImportDTO();
+		userImportDTO .setUserName(ExcelPoiUtil.getCellValue(row.getCell(0)));
+		userImportDTO.setPassword(ExcelPoiUtil.getCellValue(row.getCell(1)));
+		userImportDTO.setFullName(ExcelPoiUtil.getCellValue(row.getCell(2)));
+		userImportDTO.setRoleName(ExcelPoiUtil.getCellValue(row.getCell(3)));
+		return userImportDTO;
+	}
+	
+	
+	
 }
