@@ -29,7 +29,7 @@ public class UploadUtil {
 		// cải tiến
 		// nơi lưu trong image
 		ServletContext context = request.getServletContext();
-		String address = context.getRealPath("fileupload01");
+		String address = context.getRealPath("fileupload");
 		boolean check = true; // kiem tra co upload dc ko
 		String localName = null;// link den file
 		String name = null;// ten file

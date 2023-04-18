@@ -11,6 +11,7 @@ public class UserImportDTO implements Serializable{
 	private String password;
 	private String fullName;
 	private String roleName;
+	private boolean valid = true;
 	
 	public String getUserName() {
 		return userName;
