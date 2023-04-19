@@ -207,5 +207,24 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 		}
 		return count;
 	}
+
+	@Override
+	public T findEqualUnique(String property, Object value) {
+		T result = null;
+		Session session = this.getSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			String sql = " FROM "+this.getPersistenceClassName()+" model WHERE "+property+" =:value ";
+			Query<T> query = session.createQuery(sql);
+			query.setParameter("value", value);
+			result = query.uniqueResult();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
+		return result;
+	}
 	
 }

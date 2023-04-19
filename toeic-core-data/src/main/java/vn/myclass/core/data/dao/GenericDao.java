@@ -23,4 +23,5 @@ public interface GenericDao<ID extends Serializable, T> {
 	public Integer delete(List<Integer> ids);
 	
 	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit);
+	T findEqualUnique(String property, Object value);
 }

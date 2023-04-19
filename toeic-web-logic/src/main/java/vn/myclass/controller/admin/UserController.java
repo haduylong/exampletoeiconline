@@ -50,7 +50,10 @@ public class UserController extends HttpServlet {
 	private final String READ_EXCEL = "read_excel";
 	private final String VALIDATE_IMPORT = "validate_import";
 	private final String LIST_USER_IMPORT = "list_user_import";
+	private final String IMPORT_DATA = "import_data";
 	ResourceBundle bundle = ResourceBundle.getBundle("ApplicationResources");
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserCommand command = FormUtil.populate(UserCommand.class, req); // lấy UrlType từ menu.jsp
@@ -156,6 +159,14 @@ public class UserController extends HttpServlet {
 					resp.sendRedirect("./admin-user-import-validate.html?urlType=validate_import");
 				}
 			}
+			// -, import
+			if(command.getUrlType()!=null && command.getUrlType().equals(IMPORT_DATA)) {
+				List<UserImportDTO> userImportDTOs = (List<UserImportDTO>) SessionUtil.getInstance().getValue(req, LIST_USER_IMPORT);
+				// logic
+				SingletonServiceUtil.getUserServiceImplInstance().saveUserImport(userImportDTOs);
+				SessionUtil.getInstance().remove(req, LIST_USER_IMPORT);
+				resp.sendRedirect("./admin-user-list.html?urlType=url_list");
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			req.setAttribute(WebConstant.MESSAGE_RESPONSE, WebConstant.REDIRECT_ERROR);
@@ -169,8 +180,8 @@ public class UserController extends HttpServlet {
 		for(UserImportDTO item : excelValues) {
 			validateRequireField(item);
 			validateDuplicate(item, stringSet);
-			SingletonServiceUtil.getUserServiceImplInstance().validateImportUser(excelValues);
 		}
+		SingletonServiceUtil.getUserServiceImplInstance().validateImportUser(excelValues);
 		
 	}
 
@@ -205,8 +216,8 @@ public class UserController extends HttpServlet {
 			message += bundle.getString("label.rolename.notempty");
 		}
 		
-		if(StringUtils.isBlank(message)) {
-			item.setValid(true);
+		if(StringUtils.isNotBlank(message)) {
+			item.setValid(false);
 		}
 		
 		item.setError(message);

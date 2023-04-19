@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 <c:url var="validateExcel" value="/admin-user-import-validate.html" />
+<c:url var="importExcel" value="/admin-user-import.html" />
 <html>
 <head>
 <title><fmt:message key="label.user.import.excel"
@@ -92,7 +93,7 @@
 			});
 			$('#importData').click(function() {
 				$('#urlType').val('import_data');
-				$('#formImport').prop('enctype', false);
+				$('#formImport').prop('enctype', false); // list đc luu trong session -> ko submit kiểu file
 				$('#formImport').attr('action', '${importExcel}');
 				$('#formImport').submit();
 			});

@@ -6,11 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.mysql.cj.util.StringUtils;
 
 import jakarta.persistence.Query;
 import vn.myclass.core.common.utils.HibernateUtil;
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService{
 		if(names.size() > 0) {
 			List<UserEntity> userEntities = SingletonDaoUtil.getUserDaoImplInstance().findByListUserName(names);	
 			for(UserEntity item : userEntities) {
-				userEntityMap.put(item.getFullName().toUpperCase(), item); // ko phan biet nguoi dung nhap hoa hay thong
+				userEntityMap.put(item.getName().toUpperCase(), item); // ko phan biet nguoi dung nhap hoa hay thong
 			}
 		}
 		
@@ -118,7 +117,7 @@ public class UserServiceImpl implements UserService{
 				UserEntity userEntity = userEntityMap.get(item.getUserName().toUpperCase()); 
 				if(userEntity != null) { // ten ton tai trong ds bi trung
 					message += "<br/>";
-					message += "tên đăng nhập tồn tại";
+					message += "tên đăng nhập đã tồn tại";
 				}
 				
 				RoleEntity roleEntity = roleEntityMap.get(item.getRoleName().toUpperCase());
@@ -127,13 +126,30 @@ public class UserServiceImpl implements UserService{
 					message += "vai trò không tồn tại";
 				}
 				
-				if(org.apache.commons.lang.StringUtils.isNotBlank(message)) {
+				if(StringUtils.isNotBlank(message)) {
 					item.setValid(false);
 					item.setError(message.substring(5));
 				}
 				
 			}
 		}
+	}
+
+	@Override
+	public void saveUserImport(List<UserImportDTO> userImportDTOs) {
+		for(UserImportDTO item : userImportDTOs) {
+			if(item.isValid()) {
+				UserEntity userEntity = new UserEntity();
+				userEntity.setName(item.getUserName());
+				userEntity.setPassWord(item.getPassword());
+				userEntity.setFullName(item.getFullName());
+				userEntity.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+				RoleEntity roleEntity = SingletonDaoUtil.getRoleDaoImplInstance().findEqualUnique("name", item.getRoleName().toUpperCase());
+				userEntity.setRoleEntity(roleEntity);
+				SingletonDaoUtil.getUserDaoImplInstance().save(userEntity);
+			}
+		}
+		
 	}
 
 	
