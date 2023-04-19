@@ -49,9 +49,6 @@
 											<fmt:message key="label.file.validate.import"
 												bundle="${lang}" />
 										</button>
-										<!-- <button type="submit" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold">
-                                       Read file excel
-                                    </button> -->
 									</div>
 								</div>
 							</div>
@@ -69,7 +66,7 @@
                                                 <display:column headerClass="text-left" property="password" titleKey="label.password"/>
                                                 <display:column headerClass="text-left" property="fullName" titleKey="label.fullname"/>
                                                 <display:column headerClass="text-left" property="roleName" titleKey="label.role.name"/>
-<%--                                                 <display:column headerClass="text-left" property="error" titleKey="label.import.error"/> --%>
+                                                <display:column headerClass="text-left" property="error" titleKey="label.import.error"/>
                                             </display:table>
                                         </fmt:bundle>
                                     </div>
@@ -79,7 +76,7 @@
                                 <fmt:message key="label.user.import" bundle="${lang}"/>
                             </button>
                             </c:if>
-							<input type="hidden" name="urlType" value="read_excel" />
+							<input type="hidden" name="urlType" id="urlType" />
 						</form>
 					</div>
 				</div>

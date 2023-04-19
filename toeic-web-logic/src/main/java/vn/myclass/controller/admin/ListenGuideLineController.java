@@ -95,7 +95,7 @@ public class ListenGuideLineController extends HttpServlet {
 			session.setAttribute(WebConstant.MESSAGE_RESPONSE, bundle.getString("label.error"));
 		}
 		
-		resp.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list");
+		resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list");
 	}
 
 

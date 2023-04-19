@@ -1,5 +1,8 @@
 package vn.myclass.core.daoimpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -35,6 +38,26 @@ public class UserDaoImpl extends AbtractDao<Integer, UserEntity> implements User
 			session.close();
 		}
 		return new Object[] {isUserExist, roleName};
+	}
+
+	@Override
+	public List<UserEntity> findByListUserName(List<String> names) {
+		List<UserEntity> userEntities = new ArrayList<>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			String sql = " FROM UserEntity ue Where ue.name in (:names) ";
+			Query query = session.createQuery(sql);
+			query.setParameterList("names", names);
+			userEntities = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
+		return userEntities;
 	}
 	
 }

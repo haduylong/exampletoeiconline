@@ -12,7 +12,21 @@ public class UserImportDTO implements Serializable{
 	private String fullName;
 	private String roleName;
 	private boolean valid = true;
+	private String error;
 	
+	
+	public boolean isValid() {
+		return valid;
+	}
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
 	public String getUserName() {
 		return userName;
 	}
