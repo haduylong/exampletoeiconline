@@ -80,7 +80,7 @@ public class UserController extends HttpServlet {
 				req.setAttribute(WebConstant.MESSAGE_RESPONSE, "insert_success");
 			}else if(pojo != null && pojo.getUserId() != null) {
 				pojo = SingletonServiceUtil.getUserServiceImplInstance().findById(pojo.getUserId());
-				command.setRoles(SingletonServiceUtil.getRoleServiceImplInstance().findAll());
+				command.setRoles(SingletonServiceUtil.getRoleServiceImplInstance().findAll()); // ds cac role vao list role cua command
 				command.setPojo(pojo);
 			}else {
 				command.setRoles(SingletonServiceUtil.getRoleServiceImplInstance().findAll());
@@ -120,7 +120,7 @@ public class UserController extends HttpServlet {
 		try {
 			UserCommand command = FormUtil.populate(UserCommand.class, req);
 			// -, vào page eidt
-			if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_EDIT)) {
+			if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_EDIT)) {// btn save
 				if(command.getCrudaction()!= null && command.getCrudaction().equals(WebConstant.INSERT_UPDATE)) {
 					UserDTO pojo = command.getPojo();
 					

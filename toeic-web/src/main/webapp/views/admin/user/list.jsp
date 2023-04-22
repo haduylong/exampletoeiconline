@@ -106,7 +106,7 @@
 <script>
     $(document).ready(function () {
     });
-    function update(btn) {
+    function update(btn) {// hien thi trang edit
         var editUrl = $(btn).attr('sc-url');
         if (typeof editUrl == 'undefined') {
             editUrl = '${editUserUrl}';
@@ -116,6 +116,7 @@
             addOrEditUser();
         });
     }
+    
     function addOrEditUser() {
         $('#btnSave').click(function () {
             $('#editUserForm').submit();
