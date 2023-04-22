@@ -52,6 +52,10 @@ public class ListenGuideLineController extends HttpServlet {
 //		req.setAttribute(WebConstant.LIST_ITEMS, command);
 		///
 		if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_EDIT)) {
+			if(command.getPojo()!=null && command.getPojo().getListenGuideLineId()!=null) {
+				command.setPojo(SingletonServiceUtil.getListenGuideLineServiceImplInstance().findByListenGuideLineId("listenGuideLineId", command.getPojo().getListenGuideLineId()));
+			}
+			req.setAttribute(WebConstant.FORM_ITEM, command);
 			req.getRequestDispatcher("/views/admin/listenguideline/edit.jsp").forward(req, resp);
 		}else if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_LIST)) {
 			excuteSearchListenGuideline(req, command); // tìm kiếm 

@@ -7,6 +7,11 @@
 <html>
 <head>
     <title><fmt:message key="label.guideline.listen.edit" bundle="${lang}"/></title>
+	<style>
+		.error{
+			color : red;
+		}
+	</style>
 </head>
 <body>
 <div class="main-content">
@@ -37,15 +42,34 @@
                     </c:if>
                 	<div>
                 	
-                		<form action="${listenGuideLineEditUrl }" method="post" enctype="multipart/form-data">
+                		<form action="${listenGuideLineEditUrl }" method="post" enctype="multipart/form-data" id="formEdit">
                 			<div>
-                				<input type="file" name="file" />
+                				<label>Ảnh cho bài hd nghe	</label>
+                				<input type="file" name="file" id="uploadImage"/>
+                			</div>
+                			<br/>
+                			<div>
+                				<c:if test="${not empty item.pojo.image}">
+                                    <c:set var="image" value="/fileupload/listenguideline/${item.pojo.image}"/>
+                                </c:if>
+                                <img src="${image}" id="viewImage" width="150px" height="150px">
+                                <img src="/toeic-web/src/main/webapp/fileupload/listenguideline/slide1.png" width="150px" height="150px">
+                			</div>
+                			<br/>
+                			<div>
+                				<label>Tiêu đề bài hd nghe	</label>
+                				<input type="text" name="pojo.title" id="title" value="${ item.pojo.title}" placeholder="<fmt:message key="label.guideline.title" bundle="${lang }" />"/>
                 			</div>
                 			<div>
-                				<input type="text" name="pojo.title" placeholder="<fmt:message key="label.guideline.title" bundle="${lang }" />"/>
-                			</div>
-                			<div>
-                				<input type="text" name="pojo.content" placeholder="<fmt:message key="label.guideline.content" bundle="${lang }" />"/>
+                				<c:if test="${not empty item.pojo.content }">
+                					<c:set var="content" value="${item.pojo.content }"></c:set>
+                				</c:if>
+                				
+                				<label>Nội dung bài hd nghe</label>
+                				<div>
+                					<textarea name="pojo.content" cols="80" rows="10" id="listenGuidelineContent">${content }</textarea>
+                				</div>
+<%--                 				<input type="text" name="pojo.content" placeholder="<fmt:message key="label.guideline.content" bundle="${lang }" />"/> --%>                				
                 			</div>
                 			<div>
                 				<input type="submit" value="<fmt:message key="label.done" bundle="${lang }" />"/>
@@ -59,5 +83,53 @@
         </div>
     </div>
 </div>
+
+<script>
+	$(document).ready(function (){
+		CKEDITOR.replace('listenGuidelineContent');
+		validateData();
+		$('#uploadImage').change(function (){
+			 readURL(this, "viewImage");
+		})
+	});
+
+	function validateData(){
+		$('#formEdit').validate({
+			ignore:[],
+			rule:[],
+			messages:[]
+		});
+		$('#title').rules("add",{
+			required: true,
+			messages: {
+				 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+			}
+		})
+		$('#uploadImage').rules("add",{
+			required: true,
+			messages: {
+				 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+			}
+		});
+		$('#listenGuidelineContent').rules("add",{
+			required: function(){
+				CKEDITOR.instances.listenGuidelineContent.updateElement();
+			},
+			messages: {
+				 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+			}
+		});
+	};
+
+    function readURL(input, imageId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#' +imageId).attr('src', reader.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+     }
+</script>
 </body>
 </html>

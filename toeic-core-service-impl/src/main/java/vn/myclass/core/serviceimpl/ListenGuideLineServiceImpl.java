@@ -28,6 +28,13 @@ public class ListenGuideLineServiceImpl implements ListenGuideLineService{
 		ob[1] = dtos;
 		return ob;
 	}
+
+	@Override
+	public ListenGuideLineDTO findByListenGuideLineId(String property, Integer id) {
+		ListenGuideLineEntity listenGuideLineEntity = SingletonDaoUtil.getListenGuideLineDaoImplInstance().findEqualUnique(property, id);
+		ListenGuideLineDTO listenGuideLineDTO = ListenGuideLineBeanUtil.entity2Dto(listenGuideLineEntity);
+		return listenGuideLineDTO;
+	}
 	
 
 }
