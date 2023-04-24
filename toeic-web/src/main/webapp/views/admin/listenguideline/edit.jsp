@@ -74,6 +74,9 @@
                 			<div>
                 				<input type="submit" value="<fmt:message key="label.done" bundle="${lang }" />"/>
                 			</div>
+                			<c:if test="${not empty item.pojo.listenGuideLineId}">
+                            	<input type="hidden" name="pojo.listenGuideLineId" value="${item.pojo.listenGuideLineId}"/>
+                        	</c:if>
                 		</form>
                 	
                 	</div>
@@ -85,6 +88,11 @@
 </div>
 
 <script>
+	var listenGuideLineId = '';
+	<c:if test="${not empty item.pojo.listenGuideLineId}">
+	    listenGuideLineId = ${item.pojo.listenGuideLineId};
+	</c:if>
+	
 	$(document).ready(function (){
 		CKEDITOR.replace('listenGuidelineContent');
 		validateData();
@@ -105,12 +113,16 @@
 				 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
 			}
 		})
-		$('#uploadImage').rules("add",{
-			required: true,
-			messages: {
-				 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
-			}
-		});
+		
+		 if (listenGuidelineId == '') {// update thì có thể để ảnh trống
+			$('#uploadImage').rules("add",{
+				required: true,
+				messages: {
+					 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+				}
+			});
+		}
+		
 		$('#listenGuidelineContent').rules("add",{
 			required: function(){
 				CKEDITOR.instances.listenGuidelineContent.updateElement();

@@ -35,7 +35,14 @@
 			<div class="page-content">
 				<div class="row">
 					<div class="col-xs-12">
-
+						<c:if test="${not empty messageResponse}">
+							<div class="alert alert-block alert-${alert}">
+								<button type="button" class="close" data-dismiss="alert">
+									<i class="ace-icon fa fa-times"></i>
+								</button>
+								${messageResponse}
+							</div>
+						</c:if>
 						<form action="${formUrl}" method="get" id="formUrl">
 							<!-- tìm kiếm -->
 							<div class="row">
@@ -136,6 +143,7 @@
 	                                            <c:param name="pojo.listenGuideLineId" value="${tableList.listenGuideLineId}"/>
 	                                        </c:url>
                                         	<a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    		<a class="btn btn-sm btn-danger btn-cancel" data-toggle="tooltip" title="<fmt:message key='label.user.delete' bundle='${lang}'/>"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     	</display:column>
 									</display:table>
 								</fmt:bundle>

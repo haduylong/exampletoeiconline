@@ -4,9 +4,12 @@ import vn.myclass.core.service.ListenGuideLineService;
 import vn.myclass.core.serviceutils.SingletonDaoUtil;
 import vn.myclass.core.utils.ListenGuideLineBeanUtil;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import vn.myclass.core.dao.ListenGuideLineDao;
 import vn.myclass.core.daoimpl.ListenGuideLineDaoImpl;
@@ -33,6 +36,22 @@ public class ListenGuideLineServiceImpl implements ListenGuideLineService{
 	public ListenGuideLineDTO findByListenGuideLineId(String property, Integer id) {
 		ListenGuideLineEntity listenGuideLineEntity = SingletonDaoUtil.getListenGuideLineDaoImplInstance().findEqualUnique(property, id);
 		ListenGuideLineDTO listenGuideLineDTO = ListenGuideLineBeanUtil.entity2Dto(listenGuideLineEntity);
+		return listenGuideLineDTO;
+	}
+
+	@Override
+	public void saveListenGuideLine(ListenGuideLineDTO listenGuideLineDTO) throws ConstraintViolationException {
+		listenGuideLineDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		ListenGuideLineEntity listenGuideLineEntity = ListenGuideLineBeanUtil.dto2Entity(listenGuideLineDTO);
+		SingletonDaoUtil.getListenGuideLineDaoImplInstance().save(listenGuideLineEntity);
+	}
+
+	@Override
+	public ListenGuideLineDTO updateLiGuideLine(ListenGuideLineDTO listenGuideLineDTO) {
+		listenGuideLineDTO.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		ListenGuideLineEntity entity = ListenGuideLineBeanUtil.dto2Entity(listenGuideLineDTO);
+		entity = SingletonDaoUtil.getListenGuideLineDaoImplInstance().update(entity);
+		listenGuideLineDTO = ListenGuideLineBeanUtil.entity2Dto(entity);
 		return listenGuideLineDTO;
 	}
 	

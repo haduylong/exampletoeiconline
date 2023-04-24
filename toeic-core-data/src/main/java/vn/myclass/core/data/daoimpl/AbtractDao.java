@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
@@ -18,6 +19,7 @@ import vn.myclass.core.common.utils.HibernateUtil;
 import vn.myclass.core.data.dao.GenericDao;
 
 public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T> {
+	private final Logger log = Logger.getLogger(this.getClass());
 	private Class<T> persistenceClass; // kiểu class của T (tên table của T)
 	
 	public AbtractDao() {
@@ -48,6 +50,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			transaction.commit();
 		}catch (HibernateException e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
@@ -66,6 +69,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
@@ -82,6 +86,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
@@ -100,6 +105,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			}
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
@@ -179,6 +185,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
@@ -201,6 +208,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
@@ -220,6 +228,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			result = query.uniqueResult();
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 			throw e;
 		}finally {
 			session.close();
