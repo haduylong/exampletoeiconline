@@ -53,7 +53,6 @@
                                     <c:set var="image" value="/fileupload/listenguideline/${item.pojo.image}"/>
                                 </c:if>
                                 <img src="${image}" id="viewImage" width="150px" height="150px">
-                                <img src="/toeic-web/src/main/webapp/fileupload/listenguideline/slide1.png" width="150px" height="150px">
                 			</div>
                 			<br/>
                 			<div>

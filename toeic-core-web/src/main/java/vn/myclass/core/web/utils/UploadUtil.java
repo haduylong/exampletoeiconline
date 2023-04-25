@@ -1,6 +1,7 @@
 package vn.myclass.core.web.utils;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,8 @@ public class UploadUtil {
 	public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
 		// cải tiến
 		// nơi lưu trong image
-		ServletContext context = request.getServletContext();
-		String address = context.getRealPath("fileupload");
+		String address = "/fileupload";
+		checkAndCreateFolder(address, path);
 		boolean check = true; // kiem tra co upload dc ko
 		String localName = null;// link den file
 		String name = null;// ten file
@@ -77,7 +78,7 @@ public class UploadUtil {
 					}
 				}else {// nếu item ko là file
 					String nameField = item.getFieldName();
-					String valueField = item.getString();
+					String valueField = item.getString("UTF-8");
 					if(titleValue.contains(nameField)) {
 						mapReturnValue.put(nameField, valueField);
 					}
@@ -86,9 +87,23 @@ public class UploadUtil {
 		} catch (FileUploadException e) {
 			check = false;
 			log.error(e.getMessage(), e);
+		} catch (UnsupportedEncodingException e) {
+			log.error(e.getMessage(), e);
 		}		
 		
 		return new Object[] {check, localName, name, mapReturnValue};
+	}
+	
+	
+	private void checkAndCreateFolder(String address, String path) {
+		File folderRoot = new File(address);
+		if(!folderRoot.exists()) {
+			folderRoot.mkdirs();
+		}
+		File folderChild = new File(address + File.separator + path);
+		if(!folderChild.exists()) {
+			folderChild.mkdirs();
+		}
 	}
 	
 }

@@ -131,12 +131,14 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 		}
 		try {
 			StringBuilder sql1 = new StringBuilder(" from ");
-			sql1.append(this.getPersistenceClassName());
+			sql1.append(this.getPersistenceClassName()).append(" where 1=1 ");
 			// thêm thuộc tính truy vấn
 			if(property.size() > 0) {
-				sql1.append(" where ").append(params[0]).append("= :"+params[0]+" ");
-				for(int i1=1; i1<params.length; i1++) {
-					sql1.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
+				for(int i1=0; i1<params.length; i1++) {
+					// sql1.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
+					// sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%' || :"+params[i1]+" || '%'");
+					// sql1.append(" and ").append("LOWER("+params[i1]+") LIKE %:["+params[i1]+"]% ");
+					sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%"+values[i1]+"%' ");
 				}
 			}
 			if(sortDirection != null && sortExpression != null) {
@@ -144,12 +146,12 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			}
 			Query query = session.createQuery(sql1.toString());
 			// set value cho các thuộc tính truy vấn
-			if(property.size() > 0) {
-				query.setParameter(params[0], values[0]);
-				for(int i1=1; i1<values.length; i1++) {
-					query.setParameter(params[i1], values[i1]);
-				}
-			}
+//			if(property.size() > 0) {
+//				query.setParameter(params[0], values[0]);
+//				for(int i1=1; i1<values.length; i1++) {
+//					query.setParameter(params[i1], values[i1]);
+//				}
+//			}
 			// vị trí hàng bắt đầu và giới hạn list trả về
 			if(offset!=null && offset>= 0) {
 				query.setFirstResult(offset);
@@ -161,25 +163,27 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			
 			// lấy ra size tối đa
 			StringBuilder sql2 = new StringBuilder(" select count(*) from ");
-			sql2.append(this.getPersistenceClassName());
+			sql2.append(this.getPersistenceClassName()).append(" where 1=1 ");
 			// thêm thuộc tính truy vấn
 			if(property.size() > 0) {
-				sql2.append(" where ").append(params[0]).append("= :"+params[0]+" ");
-				for(int i1=1; i1<params.length; i1++) {
-					sql2.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
+				for(int i1=0; i1<params.length; i1++) {
+					// sql2.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
+					// sql2.append(" and ").append("LOWER("+params[i1]+") LIKE '%' || :"+params[i1]+" || '%'");
+					// sql2.append(" and ").append("LOWER("+params[i1]+") LIKE %:["+params[i1]+"]% ");
+					sql2.append(" and ").append("LOWER("+params[i1]+") LIKE '%"+values[i1]+"%' ");
 				}
 			}
 			
 			Query query2 = session.createQuery(sql2.toString());
 			
 			// set value cho các thuộc tính truy vấn
-			if(property.size() > 0) {
-				query2.setParameter(params[0], values[0]);
-				for(int i1=1; i1<values.length; i1++) {
-					query2.setParameter(params[i1], values[i1]);
-				}
-			}
-			
+//			if(property.size() > 0) {
+//				query2.setParameter(params[0], values[0]);
+//				for(int i1=1; i1<values.length; i1++) {
+//					query2.setParameter(params[i1], values[i1]);
+//				}
+//			}
+			// 
 //			totalItem = (Long) query2.list().get(0);
 			totalItem = Integer.parseInt(query2.list().get(0).toString());
 			transaction.commit();
