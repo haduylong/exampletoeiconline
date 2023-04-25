@@ -19,6 +19,7 @@ import vn.myclass.core.web.utils.FormUtil;
 import vn.myclass.core.web.utils.RequestUtil;
 import vn.myclass.core.web.utils.SingletonServiceUtil;
 import vn.myclass.core.web.utils.UploadUtil;
+import vn.myclass.core.web.utils.WebCommonUtil;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,30 +38,52 @@ import vn.myclass.core.utils.ListenGuideLineBeanUtil;
 
 @WebServlet(urlPatterns = { "/admin-guideline-listen-list.html", "/admin-guideline-listen-edit.html"})
 public class ListenGuideLineController extends HttpServlet {
-	ListenGuideLineService listenGuideLineService = new ListenGuideLineServiceImpl();
 	private final Logger log = Logger.getLogger(this.getClass());
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ListenGuidelineCommand command = FormUtil.populate(ListenGuidelineCommand.class, req);
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("ApplicationResources");
-		
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("ApplicationResources");	
 		///
-		if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_EDIT)) {
+		if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_LIST)) {// tìm kiếm or show list
+			if(command.getCrudaction()!=null && command.getCrudaction().equals(WebConstant.REDIRECT_DELETE)) { // xóa
+				List<Integer> ids = new ArrayList<>();
+				for(String item : command.getCheckList()) {
+					ids.add(Integer.parseInt(item));
+				}				
+				Integer result = SingletonServiceUtil.getListenGuideLineServiceImplInstance().delete(ids);
+				if(result != ids.size()) {
+					command.setCrudaction(WebConstant.REDIRECT_ERROR);
+				}
+			}
+			
+			excuteSearchListenGuideline(req, command); // tìm kiếm ds
+			if (command.getCrudaction() != null) {
+	                Map<String, String> mapMessage = buidMapRedirectMessage(resourceBundle);
+	                WebCommonUtil.addRedirectMessage(req, command.getCrudaction(), mapMessage);
+	          }
+			req.setAttribute(WebConstant.LIST_ITEMS, command);
+			req.getRequestDispatcher("/views/admin/listenguideline/list.jsp").forward(req, resp);
+		}else if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_EDIT)) {
 			if(command.getPojo()!=null && command.getPojo().getListenGuideLineId()!=null) {
 				command.setPojo(SingletonServiceUtil.getListenGuideLineServiceImplInstance().findByListenGuideLineId("listenGuideLineId", command.getPojo().getListenGuideLineId()));
 			}
 			req.setAttribute(WebConstant.FORM_ITEM, command);
 			req.getRequestDispatcher("/views/admin/listenguideline/edit.jsp").forward(req, resp);
-		}else if(command.getUrlType()!=null && command.getUrlType().equalsIgnoreCase(WebConstant.URL_LIST)) {
-			excuteSearchListenGuideline(req, command); // tìm kiếm 
-			
-			req.setAttribute(WebConstant.LIST_ITEMS, command);
-			req.getRequestDispatcher("/views/admin/listenguideline/list.jsp").forward(req, resp);
 		}
 		
 	}
 	
 	
+	private Map<String, String> buidMapRedirectMessage(ResourceBundle resourceBundle) {
+		 Map<String, String> mapMessage = new HashMap<String, String>();
+	     mapMessage.put(WebConstant.REDIRECT_INSERT, resourceBundle.getString("label.listenguideline.add.success"));
+	     mapMessage.put(WebConstant.REDIRECT_UPDATE, resourceBundle.getString("label.listenguideline.update.success"));
+	     mapMessage.put(WebConstant.REDIRECT_DELETE, resourceBundle.getString("label.listenguideline.delete.success"));
+	     mapMessage.put(WebConstant.REDIRECT_ERROR, resourceBundle.getString("label.message.error"));
+	     return mapMessage;
+	}
+
+
 	private void excuteSearchListenGuideline(HttpServletRequest req, ListenGuidelineCommand command) {
 //		/// tao list dto	
 //		// set các thuộc tính phân trang
@@ -99,7 +122,7 @@ public class ListenGuideLineController extends HttpServlet {
 		boolean checkStatusUploadImage = (Boolean) ob[0];
 		try {
 			if(!checkStatusUploadImage) {
-				resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+				resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&crudaction=redirect_error");
 			}else {
 				ListenGuideLineDTO dto = command.getPojo();
 				if(StringUtils.isNotBlank(ob[2].toString())) {
@@ -117,18 +140,18 @@ public class ListenGuideLineController extends HttpServlet {
 						}
 						ListenGuideLineDTO result = SingletonServiceUtil.getListenGuideLineServiceImplInstance().updateLiGuideLine(dto);
 						if(result != null) {
-							resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_update");
+							resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&crudaction=redirect_update");
 						}else {
-							resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+							resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&crudaction=redirect_error");
 						}
 					}else {
 						//save
 						try {
 							SingletonServiceUtil.getListenGuideLineServiceImplInstance().saveListenGuideLine(dto);
-							resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_insert");
+							resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&crudaction=redirect_insert");
 						} catch (ConstraintViolationException e) {
 							 log.error(e.getMessage(), e);
-		                     resp.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+		                     resp.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&crudaction=redirect_error");
 							
 						}
 						

@@ -54,6 +54,12 @@ public class ListenGuideLineServiceImpl implements ListenGuideLineService{
 		listenGuideLineDTO = ListenGuideLineBeanUtil.entity2Dto(entity);
 		return listenGuideLineDTO;
 	}
+
+	@Override
+	public Integer delete(List<Integer> ids) {
+		Integer result = SingletonDaoUtil.getListenGuideLineDaoImplInstance().delete(ids);		
+		return result;
+	}
 	
 
 }
