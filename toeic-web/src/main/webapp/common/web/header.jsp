@@ -25,12 +25,12 @@
                                     </ul>
                                 </li>
                                 <li><a href="service.html">Services</a></li>
-                                <c:if test="${not empty login_name}">
+                                <c:if test="${not empty login_name}"> <!-- kiem tra ton tai login_name trong session do logincontroller -->
                                     <li>Xin chao: ${login_name}</li>
                                     <c:url var="logoutUrl" value="/logout.html">
                                         <c:param name="action" value="logout"/>
                                     </c:url>
-                                    <li><a href="${logoutUrl}"><fmt:message key="label.logout" bundle="${lang}"/></a></li>
+                                    <li><a href="${logoutUrl}"><fmt:message key="label.logout" bundle="${lang}"/></a></li> <!-- khi logout thi tro den mot controller de xoa session -->
                                 </c:if>
                                 <c:if test="${empty login_name}">
                                     <c:url var="loginUrl" value="/login.html">
