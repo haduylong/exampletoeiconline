@@ -18,6 +18,8 @@ import org.apache.log4j.Logger;
 
 import com.mysql.cj.util.StringUtils;
 
+import vn.myclass.core.web.common.WebConstant;
+
 public class UploadUtil {
 	private final int maxMemorySize = 3 * 1024 * 1024; // 3MB
 	private final int maxRequestSize = 50 * 1024 * 1024; // 50MB
@@ -29,7 +31,7 @@ public class UploadUtil {
 	public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
 		// cải tiến
 		// nơi lưu trong image
-		String address = "/fileupload";
+		String address = "/" + WebConstant.FOLDER_UPLOAD;
 		checkAndCreateFolder(address, path);
 		boolean check = true; // kiem tra co upload dc ko
 		String localName = null;// link den file
@@ -91,7 +93,7 @@ public class UploadUtil {
 			log.error(e.getMessage(), e);
 		}		
 		
-		return new Object[] {check, localName, name, mapReturnValue};
+		return new Object[] {check, localName, path + File.separator + name, mapReturnValue};
 	}
 	
 	

@@ -18,6 +18,17 @@
     </filter-mapping>
     <!-- end sitemesh -->
     
+    <!-- mapping image from browser -->
+    <servlet>
+        <servlet-name>DisplayImage</servlet-name>
+        <servlet-class>vn.myclass.controller.DisplayImage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayImage</servlet-name>
+        <url-pattern>/repository/*</url-pattern>
+    </servlet-mapping>
+    <!-- end mapping image -->
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
