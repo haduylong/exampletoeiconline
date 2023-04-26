@@ -140,7 +140,7 @@ public class UserController extends HttpServlet {
 				req.getRequestDispatcher("/views/admin/user/edit.jsp").forward(req, resp);
 			}
 			//-, đọc file
-			if(objects!=null) {
+			if(objects!=null) {// ấn nút kiểm tra
 				String urlType = null;
 				Map<String, String> mapValue = (Map<String, String>) objects[3];
 				for(Map.Entry<String, String> item : mapValue.entrySet()) {
@@ -160,11 +160,11 @@ public class UserController extends HttpServlet {
 				}
 			}
 			// -, import
-			if(command.getUrlType()!=null && command.getUrlType().equals(IMPORT_DATA)) {
+			if(command.getUrlType()!=null && command.getUrlType().equals(IMPORT_DATA)) { // ấn nút import
 				List<UserImportDTO> userImportDTOs = (List<UserImportDTO>) SessionUtil.getInstance().getValue(req, LIST_USER_IMPORT);
 				// logic
 				SingletonServiceUtil.getUserServiceImplInstance().saveUserImport(userImportDTOs);
-				SessionUtil.getInstance().remove(req, LIST_USER_IMPORT);
+				SessionUtil.getInstance().remove(req, LIST_USER_IMPORT); // remove value in session after import
 				resp.sendRedirect("./admin-user-list.html?urlType=url_list");
 			}
 		} catch (Exception e) {

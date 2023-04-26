@@ -8,7 +8,7 @@ import org.displaytag.util.ParamEncoder;
 import com.mysql.cj.util.StringUtils;
 
 import vn.myclass.core.web.command.AbstractCommand;
-// set các thuộc tính cho Abscommand
+// set các thuộc tính cho Abscommand giúp hỗ trợ phân trang
 public class RequestUtil {
 	public static void initSearchBean(HttpServletRequest req, AbstractCommand bean) {
 		if(bean!=null) {
