@@ -10,10 +10,12 @@
         <pattern>/admin*</pattern>
     </decorator>
     <decorator name="web" page="web.jsp">
-<!--     <decorator name="admin" page="admin.jsp"> -->
         <pattern>/*</pattern>
     </decorator>
  	<decorator name="login" page="login.jsp">
        <pattern>/login*</pattern>
-    </decorator> 
+    </decorator>
+    <decorator name="product" page="product.jsp">
+       <pattern>/danh-sach*</pattern>
+    </decorator>
 </decorators>
