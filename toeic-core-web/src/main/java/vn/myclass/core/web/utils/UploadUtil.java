@@ -14,9 +14,10 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.mysql.cj.util.StringUtils;
+
 
 import vn.myclass.core.web.common.WebConstant;
 
@@ -35,7 +36,7 @@ public class UploadUtil {
 		checkAndCreateFolder(address, path);
 		boolean check = true; // kiem tra co upload dc ko
 		String localName = null;// link den file
-		String name = null;// ten file
+		String fileName = null; // tên file 
 		Map<String, String> mapReturnValue = new HashMap<>();// chua nhung values ko phai thuoc tinh file (vd <pojo.title, abc>)
 		
 		// Check that we have a file upload request
@@ -58,8 +59,8 @@ public class UploadUtil {
 			List<FileItem> items = upload.parseRequest(request);
 			for(FileItem item : items) {
 				if(!item.isFormField()) {// nếu item là file
-					String fileName = item.getName(); /* lấy tên */ name = fileName;
-					if(org.apache.commons.lang.StringUtils.isNotBlank(name)) {
+					fileName = item.getName(); /* lấy tên */
+					if(StringUtils.isNotBlank(fileName)) {
 						File uploadedFile = new File(address + File.separator + path + File.separator + fileName);// file den duong dan 
 						localName = address + File.separator + path + File.separator + fileName;
 									
@@ -93,7 +94,12 @@ public class UploadUtil {
 			log.error(e.getMessage(), e);
 		}		
 		
-		return new Object[] {check, localName, path + File.separator + name, mapReturnValue};
+		String name = "";
+		if(StringUtils.isNotBlank(fileName)) {
+			name = path + File.separator + fileName;
+		}
+		
+		return new Object[] {check, localName, name , mapReturnValue};
 	}
 	
 	

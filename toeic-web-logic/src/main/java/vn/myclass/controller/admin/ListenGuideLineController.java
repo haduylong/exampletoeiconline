@@ -125,7 +125,7 @@ public class ListenGuideLineController extends HttpServlet {
 				resp.sendRedirect("./admin-guideline-listen-list.html?urlType=url_list&crudaction=redirect_error");
 			}else {
 				ListenGuideLineDTO dto = command.getPojo();
-				if(StringUtils.isNotBlank(ob[2].toString())) {
+				if(StringUtils.isNotBlank(ob[2].toString())) {// kiểm tra nếu ảnh ko bị blank thì gán ảnh vào dto (vì khi update thì ko gửi file ảnh lên)
 					dto.setImage(ob[2].toString());
 				}
 				Map<String, String> mapValue = (Map<String, String>) ob[3];
@@ -134,7 +134,7 @@ public class ListenGuideLineController extends HttpServlet {
 					if(dto.getListenGuideLineId()!=null) {
 						// update
 						ListenGuideLineDTO listenGuideLineDTO = SingletonServiceUtil.getListenGuideLineServiceImplInstance().findByListenGuideLineId("listenGuideLineId", dto.getListenGuideLineId());
-						if(dto.getImage() == null) {
+						if(dto.getImage() == null) {// image bị blank thì gán image dưới database vào dto
 							dto.setImage(listenGuideLineDTO.getImage());
 							dto.setCreatedDate(listenGuideLineDTO.getCreatedDate());
 						}
