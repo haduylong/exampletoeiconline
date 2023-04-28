@@ -41,7 +41,7 @@ public class UserEntity {
 	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
 	private List<CommentEntity> commentList;
 	
-	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY) // lưu ý mappedBy phải giống tên biến map đến
 	private List<ResultEntity> results;
 
 	public UserEntity() {}

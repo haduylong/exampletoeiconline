@@ -134,9 +134,9 @@
 										<display:column property="title"
 											titleKey="label.guideline.listen.title" sortable="true"
 											sortName="title" />
-										<display:column property="content"
-											titleKey="label.guideline.listen.content" sortable="true"
-											sortName="content" />
+<%-- 										<display:column property="content" --%>
+<%-- 											titleKey="label.guideline.listen.content" sortable="true" --%>
+<%-- 											sortName="content" /> --%>
 										<display:column headerClass="col-actions" titleKey="label.action">
 	                                        <c:url var="editUrl" value="/admin-guideline-listen-edit.html">
 	                                            <c:param name="urlType" value="url_edit"/>
