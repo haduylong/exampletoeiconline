@@ -33,7 +33,7 @@
                         <div class="grid news_desc">
                             <h3>${item.title}</h3>
                             <c:url value="/noi-dung-bai-huong-dan-nghe.html" var="detailUrl">
-                                <c:param name="listenguidelineid" value="${item.listenGuidelineId}"/>
+                                <c:param name="listenguidelineid" value="${item.listenGuideLineId}"/>
                             </c:url>
                             <h4><span><a href="${detailUrl}">Chi tiết bài hướng dẫn</a></span></h4>
                         </div>
@@ -57,7 +57,7 @@
             startPage: startPage,
             visiblePages: visiblePages,
             onPageClick: function (event, page) { // nhày vào onPageClick khi load page mới
-                if (page != startPage) {
+                if (page != startPage) { // dieu kien page khac startpage thi gan lai page va submit neu ko no se submit lien tuc
                     $('#page').val(page);
                     $('#formUrl').submit();
                 }
