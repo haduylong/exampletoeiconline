@@ -41,7 +41,8 @@
         </div>
     </div>
     <ul class="nav nav-list">
-        <li class="">
+    <!-- danh sach listen guideline -->
+        <li class=""> 
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
                 <span class="menu-text"></span>
@@ -59,7 +60,8 @@
                 </li>
             </ul>
         </li>
-        <li class="">
+        <!-- danh sach user -->
+        <li class=""> 
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
                 <span class="menu-text"></span>
@@ -77,7 +79,8 @@
                 </li>
             </ul>
         </li>
-        <li class="">
+        <!-- danh sach exercise -->
+        <li class=""> 
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
                 <span class="menu-text"></span>
