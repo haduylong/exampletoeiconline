@@ -1,5 +1,8 @@
 package vn.myclass.core.service;
 
-public interface ExerciseService {
+import java.util.Map;
 
+public interface ExerciseService {
+	public Object[] findByProperty(Map<String, Object> properties, String sortExpression, String sortDirection,
+			int firstItem, int maxPageItems);
 }

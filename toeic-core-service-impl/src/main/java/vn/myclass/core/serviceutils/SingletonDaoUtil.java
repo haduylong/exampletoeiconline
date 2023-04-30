@@ -54,21 +54,24 @@ public class SingletonDaoUtil {
 		return examinationQuestionDaoImpl;
 	}
 	
-	private ExerciseDaoImpl getExerciseDaoImplInstance() {
+
+	public static ExerciseDaoImpl getExerciseDaoImplInstance() {
 		if(exerciseDaoImpl == null) {
 			exerciseDaoImpl = new ExerciseDaoImpl();
 		}
 		return exerciseDaoImpl;
 	}
 	
-	private ExerciseQuestionDaoImpl getExerciseQuestionDaoImplInstance() {
+	
+	public static ExerciseQuestionDaoImpl getExerciseQuestionDaoImplInstance() {
 		if(exerciseQuestionDaoImpl == null) {
 			exerciseQuestionDaoImpl = new ExerciseQuestionDaoImpl();
 		}
 		return exerciseQuestionDaoImpl;
 	}
 	
-	private CommentDaoImpl getCommentDaoImplInstance() {
+
+	public static CommentDaoImpl getCommentDaoImplInstance() {
 		if(commentDaoImpl == null) {
 			commentDaoImpl = new CommentDaoImpl();
 		}
