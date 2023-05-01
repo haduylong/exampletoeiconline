@@ -3,9 +3,6 @@ package vn.myclass.core.utils;
 import vn.myclass.core.dto.ExaminationQuestionDTO;
 import vn.myclass.core.persistence.entity.ExaminationQuestionEntity;
 
-/**
- * Created by Admin on 3/12/2017.
- */
 public class ExaminationQuestionBeanUtil {
 	public static ExaminationQuestionDTO entity2Dto(ExaminationQuestionEntity entity) {
 		ExaminationQuestionDTO dto = new ExaminationQuestionDTO();

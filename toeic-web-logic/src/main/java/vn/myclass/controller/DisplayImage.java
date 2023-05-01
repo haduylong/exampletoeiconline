@@ -21,7 +21,7 @@ public class DisplayImage extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String imageUrl = req.getRequestURI();
-		String relativeImagePath = imageUrl.substring("/repository/".length());
+		String relativeImagePath = imageUrl.substring(12); // imageUrl.substring("/repository/".length());
 		ServletOutputStream outStream;
 		outStream = resp.getOutputStream();
 		FileInputStream fin = new FileInputStream(imagesBase + File.separator + relativeImagePath);

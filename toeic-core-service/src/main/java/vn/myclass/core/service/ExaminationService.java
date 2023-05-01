@@ -1,5 +1,7 @@
 package vn.myclass.core.service;
 
-public interface ExaminationService {
+import java.util.Map;
 
+public interface ExaminationService {
+	
 }

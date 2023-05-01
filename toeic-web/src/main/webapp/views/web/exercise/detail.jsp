@@ -86,7 +86,7 @@
             if (page != startPage) {
                 $('#page').val(page);
                 var exerciseId = $('#exerciseId').val();
-                window.location = "/bai-tap-thuc-hanh.html?page="+page+"&exerciseId="+exerciseId+"";
+                window.location = "./bai-tap-thuc-hanh.html?page="+page+"&exerciseId="+exerciseId+"";
             }
         }
     });
@@ -94,7 +94,7 @@
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: '/ajax-bai-tap-dap-an.html',
+            url: './ajax-bai-tap-dap-an.html',
             data: $(this).serialize(),
             dataType: 'html',
             success: function(res){

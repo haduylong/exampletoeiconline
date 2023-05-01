@@ -10,7 +10,7 @@ import com.mysql.cj.util.StringUtils;
 import vn.myclass.core.web.command.AbstractCommand;
 // set các thuộc tính cho Abscommand giúp hỗ trợ phân trang
 public class RequestUtil {
-	public static void initSearchBean(HttpServletRequest req, AbstractCommand bean) {
+	public static void initSearchBean(HttpServletRequest req, AbstractCommand bean) {// phân trang cho table
 		if(bean!=null) {
 	        String sortExpression = req.getParameter(new ParamEncoder(bean.getTableId()).encodeParameterName(TableTagParameters.PARAMETER_SORT));
 	        String sortDirection = req.getParameter(new ParamEncoder(bean.getTableId()).encodeParameterName(TableTagParameters.PARAMETER_ORDER));
@@ -33,7 +33,7 @@ public class RequestUtil {
 		}
 	}
 	
-	public static void initSearchBeanManual(HttpServletRequest req, AbstractCommand command) {
+	public static void initSearchBeanManual(HttpServletRequest req, AbstractCommand command) {// phân trang cho danh sách ...
 		if(command != null) {
 			Integer page = 1;
 			if(command.getPage() != 0) {
