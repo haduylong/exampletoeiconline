@@ -23,14 +23,14 @@ import vn.myclass.core.web.utils.FormUtil;
 import vn.myclass.core.web.utils.RequestUtil;
 import vn.myclass.core.web.utils.SingletonServiceUtil;
 
-@WebServlet(urlPatterns = {"/danh-sach-bai-tap.html"})
+@WebServlet(urlPatterns = {"/danh-sach-bai-tap.html", "/bai-tap-thuc-hanh.html"})
 public class ExerciseController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ExerciseCommand command = FormUtil.populate(ExerciseCommand.class, req);
 		ExerciseDTO pojo = command.getPojo();
 		if(pojo.getExerciseId() != null) {
-			
+			req.getRequestDispatcher("/views/web/exercise/detail.jsp").forward(req, resp);
 		}else {
 			excuteSearchListenGuideline(req, command);
 			req.setAttribute(WebConstant.LIST_ITEMS, command);
