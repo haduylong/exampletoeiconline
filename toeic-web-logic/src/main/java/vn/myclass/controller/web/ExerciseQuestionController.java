@@ -52,7 +52,7 @@ public class ExerciseQuestionController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ExerciseQuestionCommand command = FormUtil.populate(ExerciseQuestionCommand.class, req);
 		getListExerciseQuestion(command);
-		for(ExerciseQuestionDTO item : command.getListResult()) {
+		for(ExerciseQuestionDTO item : command.getListResult()) {//n
 			if(!command.getAnswerUser().equals(item.getCorrectAnswer())) {
 				command.setCheckAnswer(true);
 			};

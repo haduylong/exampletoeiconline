@@ -75,7 +75,7 @@
         });
         $('#btnAgain').click(function () {
             var exerciseId = $('#exerciseId').val();
-            window.location = "/bai-tap-thuc-hanh.html?page="+startPage+"&exerciseId="+exerciseId+"";
+            window.location = "./bai-tap-thuc-hanh.html?page="+startPage+"&exerciseId="+exerciseId+""; // ko click chon trang -> start page = page
         });
     });
     $('#pagination-demo').twbsPagination({
