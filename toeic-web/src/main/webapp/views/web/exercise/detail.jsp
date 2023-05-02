@@ -19,13 +19,15 @@
                             </p>
                             <c:if test="${item.image != null}">
                                 <p>
-                                    <img src="<c:url value="/repository/${item.image}"/>" width="300px" height="150px">
+<%--                                     <img src="<c:url value="/repository/${item.image}"/>" width="300px" height="150px"> --%>
+									<img src="<c:url value="/fileupload/${item.image}"/>" width="300px" height="150px">
                                 </p>
                             </c:if>
                             <c:if test="${item.audio != null}">
                                 <p>
                                     <audio controls>
-                                        <source src="<c:url value="/repository/${item.audio}"/>" type="audio/mpeg">
+<%--                                         <source src="<c:url value="/repository/${item.audio}"/>" type="audio/mpeg"> --%>
+                                        <source src="<c:url value="/fileupload/${item.audio}"/>" type="audio/mpeg">
                                     </audio>
                                 </p>
                             </c:if>

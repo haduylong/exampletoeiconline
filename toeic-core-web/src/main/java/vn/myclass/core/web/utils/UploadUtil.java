@@ -32,7 +32,9 @@ public class UploadUtil {
 	public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
 		// cải tiến
 		// nơi lưu trong image
-		String address = "/" + WebConstant.FOLDER_UPLOAD;
+//		String address = "/" + WebConstant.FOLDER_UPLOAD;
+//		String address = request.getServletContext().getRealPath("/" + WebConstant.FOLDER_UPLOAD);
+		String address = "D:/Java/workspace_p1/exampletoeiconline/toeic-web/src/main/webapp/fileupload";
 		checkAndCreateFolder(address, path);
 		boolean check = true; // kiem tra co upload dc ko
 		String localName = null;// link den file
