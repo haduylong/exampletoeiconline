@@ -16,7 +16,7 @@ public class ExerciseServiceImpl implements ExerciseService{
 
 	public Object[] findByProperty(Map<String, Object> properties, String sortExpression, String sortDirection,
 			int firstItem, int maxPageItems) {
-		Object[] objects = SingletonDaoUtil.getExerciseDaoImplInstance().findByProperty(properties, sortExpression, sortDirection, firstItem, maxPageItems);
+		Object[] objects = SingletonDaoUtil.getExerciseDaoImplInstance().findByProperty(properties, sortExpression, sortDirection, firstItem, maxPageItems, null);
 		List<ExerciseDTO> dtos = new ArrayList<>();
 		for(ExerciseEntity item : (List<ExerciseEntity>) objects[1]) {
 			dtos.add(ExerciseBeanUtil.entity2Dto(item));

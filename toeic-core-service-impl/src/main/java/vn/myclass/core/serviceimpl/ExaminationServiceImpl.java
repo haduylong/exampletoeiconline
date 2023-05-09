@@ -14,7 +14,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	@Override
 	public Object[] findByProperty(Map<String, Object> properties, String sortExpression, String sortDirection,
 			int firstItem, int maxPageItems) {
-		Object[] objects = SingletonDaoUtil.getExaminationDaoImplInstance().findByProperty(properties, sortExpression, sortDirection, firstItem, maxPageItems);
+		Object[] objects = SingletonDaoUtil.getExaminationDaoImplInstance().findByProperty(properties, sortExpression, sortDirection, firstItem, maxPageItems, null);
 		List<ExaminationDTO> dtos = new ArrayList<>();
 		for(ExaminationEntity item : (List<ExaminationEntity>) objects[1]) {
 			dtos.add(ExaminationBeanUtil.entity2Dto(item));

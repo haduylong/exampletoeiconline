@@ -114,7 +114,7 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 	}
 
 	@Override
-	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {	
+	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, String whereClause) {	
 		Session session = this.getSession();
 		Transaction transaction = session.beginTransaction();
 		
@@ -141,6 +141,11 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 					sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%"+values[i1]+"%' ");
 				}
 			}
+			
+			if(whereClause != null) {
+				sql1.append(whereClause);
+			}
+			
 			if(sortDirection != null && sortExpression != null) {
 				sql1.append(" order by ").append(sortExpression).append(sortDirection.equals(CoreConstant.SORT_ASC)?" asc ":" desc ");
 			}
@@ -172,6 +177,10 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 					// sql2.append(" and ").append("LOWER("+params[i1]+") LIKE %:["+params[i1]+"]% ");
 					sql2.append(" and ").append("LOWER("+params[i1]+") LIKE '%"+values[i1]+"%' ");
 				}
+			}
+			
+			if(whereClause != null) {
+				sql2.append(whereClause);
 			}
 			
 			Query query2 = session.createQuery(sql2.toString());
