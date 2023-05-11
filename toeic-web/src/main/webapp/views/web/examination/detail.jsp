@@ -9,7 +9,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><fmt:message key="label.home" bundle="${lang}"/></title>
-    <script src="<c:url value="/template/countdown/countdown.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/template/countdown/countdown.js"/>" type="text/javascript"></script> <!-- goi countdown -->
 </head>
 <body>
 <form action="<c:url value="/bai-thi-dap-an.html"/>" method="post" id="formUrl">
@@ -34,7 +34,7 @@
             output += "s: " + s + "\n";
         }
         var myCountdownTest = new Countdown({
-            time: 20,
+            time: 3600,
             width	: 300,
             height	: 50,
             onComplete : doneHandler

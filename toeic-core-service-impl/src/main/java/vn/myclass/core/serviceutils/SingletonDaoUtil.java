@@ -6,8 +6,10 @@ import vn.myclass.core.daoimpl.ExaminationQuestionDaoImpl;
 import vn.myclass.core.daoimpl.ExerciseDaoImpl;
 import vn.myclass.core.daoimpl.ExerciseQuestionDaoImpl;
 import vn.myclass.core.daoimpl.ListenGuideLineDaoImpl;
+import vn.myclass.core.daoimpl.ResultDaoImpl;
 import vn.myclass.core.daoimpl.RoleDaoImpl;
 import vn.myclass.core.daoimpl.UserDaoImpl;
+import vn.myclass.core.serviceimpl.ResultServiceImpl;
 
 public class SingletonDaoUtil {
 	private static UserDaoImpl userDaoImpl = null;
@@ -18,6 +20,7 @@ public class SingletonDaoUtil {
 	private static ExerciseDaoImpl exerciseDaoImpl = null;
 	private static ExerciseQuestionDaoImpl exerciseQuestionDaoImpl = null;
 	private static CommentDaoImpl commentDaoImpl = null;
+	private static ResultDaoImpl resultDaoImpl = null;
 	
 	public static UserDaoImpl getUserDaoImplInstance() {
 		if(userDaoImpl == null) {
@@ -76,5 +79,12 @@ public class SingletonDaoUtil {
 			commentDaoImpl = new CommentDaoImpl();
 		}
 		return commentDaoImpl;
+	}
+	
+	public static ResultDaoImpl getResultDaoImplInstance() {
+		if(resultDaoImpl == null) {
+			resultDaoImpl = new ResultDaoImpl();
+		}
+		return resultDaoImpl;
 	}
 }
