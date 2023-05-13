@@ -52,31 +52,43 @@
                             <c:if test="${item.correctAnswer == 'A'}">
                                 <img src="<c:url value="/template/image/correct.png"/>">
                             </c:if>
+                            <c:if test="${(item.answerUser == 'A') && (item.correctAnswer != 'A')}">
+                    			<img src="<c:url value="/template/image/incorrect.png"/>">
+                			</c:if>
                             ${item.option1}
                         </p>
                         <p>
                             <c:if test="${item.correctAnswer == 'B'}">
                                 <img src="<c:url value="/template/image/correct.png"/>">
                             </c:if>
+                            <c:if test="${(item.answerUser == 'B') && (item.correctAnswer != 'B')}">
+                    			<img src="<c:url value="/template/image/incorrect.png"/>">
+                			</c:if>
                             ${item.option2}
                         </p>
                         <p>
                             <c:if test="${item.correctAnswer == 'C'}">
                                 <img src="<c:url value="/template/image/correct.png"/>">
                             </c:if>
+                            <c:if test="${(item.answerUser == 'C') && (item.correctAnswer != 'C')}">
+                    			<img src="<c:url value="/template/image/incorrect.png"/>">
+                			</c:if>
                             ${item.option3}
                         </p>
                         <p>
                             <c:if test="${item.correctAnswer == 'D'}">
                                 <img src="<c:url value="/template/image/correct.png"/>">
                             </c:if>
+                            <c:if test="${(item.answerUser == 'D') && (item.correctAnswer != 'D')}">
+                    			<img src="<c:url value="/template/image/incorrect.png"/>">
+                			</c:if>
                             ${item.option4}
                         </p>
                     </c:if>
                 </c:forEach>
             </div>
             <br/>
-            <a href="/danh-sach-bai-thi.html" class="btn btn-primary" type="button">Trở lại danh sách</a>
+            <a href="./danh-sach-bai-thi.html" class="btn btn-primary" type="button">Trở lại danh sách</a>
         </div>
         <div class="grid images_3_of_1">
             <div style="overflow: auto; height: 500px" >
@@ -97,7 +109,7 @@
                 </c:forEach>
             </div>
             <br/>
-            <a href="/bai-thi-thuc-hanh.html?examinationId=${items.examinationId}" class="btn btn-primary" type="button">Làm lại bài thi</a>
+            <a href="./bai-thi-thuc-hanh.html?examinationId=${items.examinationId}" class="btn btn-primary" type="button">Làm lại bài thi</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Xem kết quả</button>
         </div>
     </div>

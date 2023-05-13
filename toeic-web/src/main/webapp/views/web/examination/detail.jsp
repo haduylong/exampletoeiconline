@@ -34,7 +34,7 @@
             output += "s: " + s + "\n";
         }
         var myCountdownTest = new Countdown({
-            time: 3600,
+            time: 7200,
             width	: 300,
             height	: 50,
             onComplete : doneHandler
@@ -124,7 +124,7 @@
     $(function(){
         setTimeout(function(){
             $('#formUrl').submit();
-        },20000);
+        },7200*1000);
     });
 </script>
 </body>
