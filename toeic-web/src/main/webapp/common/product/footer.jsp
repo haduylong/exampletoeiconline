@@ -1,5 +1,5 @@
-<div class="footer">
+<div class="footer" style="background: black !important;">
     <div class="copy_right">
-        <p>Company Name Â© All rights Reseverd | Design by  <a href="http://w3layouts.com">W3Layouts</a> </p>
+        <p>Company Name: © Ha Noi university of science and technology | Design by  <a href="http://w3layouts.com">W3Layouts</a> </p>
     </div>
 </div>

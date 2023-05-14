@@ -13,7 +13,7 @@
                         <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
                         <div class="nav-collapse collapse navbar-responsive-collapse">
                             <ul class="nav">
-                                <li class="active"><a href="index.html">Home</a></li>
+                                <li class="active"><a href="home.html">Home</a></li>
 
                                 <li class="dropdown">
                                     <a href="about.html" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
