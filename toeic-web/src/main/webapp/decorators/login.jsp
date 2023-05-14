@@ -19,7 +19,7 @@
     <script src="<c:url value='/template/admin/assets/js/ace-extra.min.js'/>"></script>
 	<dec:head/>
 </head>
-<body class="login-layout">
+<body class="login-layout" style="background: url(./common/login/dai-hoc-bach-khoa-ha-noi-hust-1-1-1.webp) no-repeat; background-size: cover">
 <%-- 	<%@ include file = "/common/admin/header.jsp" %> --%>
 <%-- 	<%@ include file = "/common/admin/menu.jsp" %> --%>
  <div class="main-container">
@@ -32,18 +32,7 @@
                             <dec:body/> <!-- body -->
                         </div>
                         <div class="navbar-fixed-top align-right">
-                            <br />
-                            &nbsp;
-                            <a id="btn-login-dark" href="#">Dark</a>
-                            &nbsp;
-                            <span class="blue">/</span>
-                            &nbsp;
-                            <a id="btn-login-blur" href="#">Blur</a>
-                            &nbsp;
-                            <span class="blue">/</span>
-                            &nbsp;
-                            <a id="btn-login-light" href="#">Light</a>
-                            &nbsp; &nbsp; &nbsp;
+                         
                         </div>
                     </div>
                 </div>
