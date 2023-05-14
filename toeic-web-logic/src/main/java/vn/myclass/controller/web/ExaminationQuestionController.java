@@ -28,8 +28,8 @@ public class ExaminationQuestionController extends HttpServlet{
 		req.getRequestDispatcher("/views/web/examination/detail.jsp").forward(req, resp);
 	}
 	
-	private void getListExaminationQuestion(ExaminationQuestionCommand command) {	
-		Object[] objects = SingletonServiceUtil.getExaminationQuestionServiceImplInstance().findExaminationQuestionByProperties(new HashMap<String, Object>(), command.getSortExpression(), command.getSortDirection(), null, null, command.getExaminationId());
+	private void getListExaminationQuestion(ExaminationQuestionCommand command) {// tim kiem cac examination question	
+		Object[] objects = SingletonServiceUtil.getExaminationQuestionServiceImplInstance().findExaminationQuestionByProperties(null, command.getSortExpression(), command.getSortDirection(), null, null, command.getExaminationId());
 		command.setListResult((List<ExaminationQuestionDTO>) objects[1]);
 	}
 

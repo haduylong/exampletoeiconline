@@ -120,27 +120,11 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 		
 		List<T> list = new ArrayList<>();
 		Integer totalItem =  0;
-		String[] params = new String[property.size()];
-		Object[] values = new Object[property.size()];
-		// add các thuộc tính trong map và mảng
-		int i = 0;
-		for(Map.Entry item : property.entrySet()) {
-			params[i] = (String) item.getKey();
-			values[i] = item.getValue();
-			i++;
-		}
 		try {
 			StringBuilder sql1 = new StringBuilder(" from ");
 			sql1.append(this.getPersistenceClassName()).append(" where 1=1 ");
 			// thêm thuộc tính truy vấn
-			if(property.size() > 0) {
-				for(int i1=0; i1<params.length; i1++) {
-					// sql1.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
-					// sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%' || :"+params[i1]+" || '%'");
-					// sql1.append(" and ").append("LOWER("+params[i1]+") LIKE %:["+params[i1]+"]% ");
-					sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%"+values[i1]+"%' ");
-				}
-			}
+			sql1.append(buildPropertiesQuery(property));
 			
 			if(whereClause != null) {
 				sql1.append(whereClause);
@@ -150,13 +134,6 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 				sql1.append(" order by ").append(sortExpression).append(sortDirection.equals(CoreConstant.SORT_ASC)?" asc ":" desc ");
 			}
 			Query query = session.createQuery(sql1.toString());
-			// set value cho các thuộc tính truy vấn
-//			if(property.size() > 0) {
-//				query.setParameter(params[0], values[0]);
-//				for(int i1=1; i1<values.length; i1++) {
-//					query.setParameter(params[i1], values[i1]);
-//				}
-//			}
 			// vị trí hàng bắt đầu và giới hạn list trả về
 			if(offset!=null && offset>= 0) {
 				query.setFirstResult(offset);
@@ -170,30 +147,13 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 			StringBuilder sql2 = new StringBuilder(" select count(*) from ");
 			sql2.append(this.getPersistenceClassName()).append(" where 1=1 ");
 			// thêm thuộc tính truy vấn
-			if(property.size() > 0) {
-				for(int i1=0; i1<params.length; i1++) {
-					// sql2.append(" and ").append(params[i1]).append("= :"+params[i1]+" ");
-					// sql2.append(" and ").append("LOWER("+params[i1]+") LIKE '%' || :"+params[i1]+" || '%'");
-					// sql2.append(" and ").append("LOWER("+params[i1]+") LIKE %:["+params[i1]+"]% ");
-					sql2.append(" and ").append("LOWER("+params[i1]+") LIKE '%"+values[i1]+"%' ");
-				}
-			}
+			sql2.append(buildPropertiesQuery(property));
 			
 			if(whereClause != null) {
 				sql2.append(whereClause);
 			}
 			
 			Query query2 = session.createQuery(sql2.toString());
-			
-			// set value cho các thuộc tính truy vấn
-//			if(property.size() > 0) {
-//				query2.setParameter(params[0], values[0]);
-//				for(int i1=1; i1<values.length; i1++) {
-//					query2.setParameter(params[i1], values[i1]);
-//				}
-//			}
-			// 
-//			totalItem = (Long) query2.list().get(0);
 			totalItem = Integer.parseInt(query2.list().get(0).toString());
 			transaction.commit();
 		} catch (Exception e) {
@@ -205,6 +165,27 @@ public class AbtractDao<ID extends Serializable, T> implements GenericDao<ID, T>
 		}
 		
 		return new Object[] {totalItem, list};
+	}
+	
+	/*
+	 * 
+	 */
+	private String buildPropertiesQuery(Map<String, Object> properties) {
+		StringBuilder sql = new StringBuilder("");
+		if(properties!=null && properties.size()>0) {
+			String params[] = new String[properties.size()];
+			Object values[] = new Object[properties.size()];
+			int i = 0;
+			for(Map.Entry item : properties.entrySet()) {
+				params[i] = (String) item.getKey();
+				values[i] = item.getValue();
+			}
+			for(int k=0; k<properties.size(); k++) {
+				sql.append(" AND ").append("LOWER("+params[k]+")" + " LIKE '%"+values[k]+"%' ");
+			}
+			
+		}
+		return sql.toString();
 	}
 
 	@Override
