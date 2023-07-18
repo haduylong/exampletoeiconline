@@ -19,7 +19,7 @@
     <%@ include file="/common/product/header.jsp" %>
     <dec:body/>
 </div>
-<%@ include file="/common/product/footer.jsp" %>
 <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+<%@ include file="/common/product/footer.jsp" %>
 </body>
 </html>
