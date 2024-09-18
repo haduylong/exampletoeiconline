@@ -16,8 +16,12 @@ public class ExerciseQuestionServiceImpl implements ExerciseQuestionService{
 
 	@Override
 	public Object[] findByProperty(Map<String, Object> properties, String sortExpression, String sortDirection,
-			int firstItem, int maxPageItems) {
-		Object[] objects = SingletonDaoUtil.getExerciseQuestionDaoImplInstance().findByProperty(properties, sortExpression, sortDirection, firstItem, maxPageItems);
+			int firstItem, int maxPageItems, Integer exerciseId) {
+		String whereClause = null;
+		if(exerciseId != null) {
+			whereClause = " AND exerciseEntity.exerciseId = "+exerciseId+"";
+		}
+		Object[] objects = SingletonDaoUtil.getExerciseQuestionDaoImplInstance().findByProperty(properties, sortExpression, sortDirection, firstItem, maxPageItems, whereClause);
 		List<ExerciseQuestionDTO> dtos = new ArrayList<>();
 		for(ExerciseQuestionEntity item : (List<ExerciseQuestionEntity>) objects[1]) {
 			ExerciseQuestionDTO dto = ExerciseQuestionBeanUtil.entity2Dto(item);

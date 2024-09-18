@@ -6,6 +6,7 @@ import vn.myclass.core.serviceimpl.ExaminationServiceImpl;
 import vn.myclass.core.serviceimpl.ExerciseQuestionServiceImpl;
 import vn.myclass.core.serviceimpl.ExerciseServiceImpl;
 import vn.myclass.core.serviceimpl.ListenGuideLineServiceImpl;
+import vn.myclass.core.serviceimpl.ResultServiceImpl;
 import vn.myclass.core.serviceimpl.RoleServiceImpl;
 import vn.myclass.core.serviceimpl.UserServiceImpl;
 
@@ -18,6 +19,7 @@ public class SingletonServiceUtil {
 	private static ExerciseServiceImpl exerciseServiceImpl = null;
 	private static ExerciseQuestionServiceImpl exerciseQuestionServiceImpl = null;
 	private static CommentServiceImpl commentServiceImpl = null;
+	private static ResultServiceImpl resultServiceImpl = null;
 	
 	public static UserServiceImpl getUserServiceImplInstance() {
 		if(userServiceImpl == null) {
@@ -73,5 +75,12 @@ public class SingletonServiceUtil {
 			commentServiceImpl = new CommentServiceImpl();
 		}
 		return commentServiceImpl;
+	}
+	
+	public static ResultServiceImpl getResultServiceImplInstance() {
+		if(resultServiceImpl == null) {
+			resultServiceImpl = new ResultServiceImpl();
+		}
+		return resultServiceImpl;
 	}
 }

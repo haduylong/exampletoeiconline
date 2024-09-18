@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection,
 			Integer offset, Integer limit) {
-		Object[] ob = SingletonDaoUtil.getUserDaoImplInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
+		Object[] ob = SingletonDaoUtil.getUserDaoImplInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
 		
 		List<UserDTO> list = new ArrayList<>();
 		for (UserEntity userEntity : (List<UserEntity>) ob[1]) {

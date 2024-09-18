@@ -21,7 +21,7 @@ public class ExaminationQuestionDTO implements Serializable {
 	private Timestamp modifiedDate;
 	private String type;
 	private ExaminationDTO examination;
-	private Integer number;
+	private Integer number;// đánh số cho câu hỏi
 	private String answerUser;
 
 	public Integer getExaminationQuestionId() {

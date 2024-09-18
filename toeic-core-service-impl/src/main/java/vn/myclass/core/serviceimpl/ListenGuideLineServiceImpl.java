@@ -22,7 +22,7 @@ public class ListenGuideLineServiceImpl implements ListenGuideLineService{
 	@Override
 	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection,
 			Integer offset, Integer limit) {
-		Object[] ob = SingletonDaoUtil.getListenGuideLineDaoImplInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
+		Object[] ob = SingletonDaoUtil.getListenGuideLineDaoImplInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
 		List<ListenGuideLineDTO> dtos = new ArrayList<>();
 		for (ListenGuideLineEntity item : (List<ListenGuideLineEntity>) ob[1]) {
 			ListenGuideLineDTO temp = ListenGuideLineBeanUtil.entity2Dto(item);

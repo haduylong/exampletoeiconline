@@ -216,7 +216,7 @@ Carousel
 
 footer{
 border-top:1px solid #eee;
-background: #f5f5f5;
+background:black;
 padding: 30px 0;
 color: #ccc;
 margin-top:40px;
@@ -232,6 +232,6 @@ margin-top:40px;
  }
  
 /* Landscape phones and down */
-@media (max-width: 480px) { ... }
+@media (max-width: 480px) {  }
 
 

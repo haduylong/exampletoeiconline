@@ -1,7 +1,7 @@
-<footer>
+<footer style="background: black !important;">
     <div class="container">
         <div class="row">
-            <div class="span6">Copyright &copy 2013 Shapebootstrap | All Rights Reserved  <br>
+            <div class="span6">Copyright &copy 2022.2 Shapebootstrap | All Rights Reserved  <br>
                 <small>Aliquam tincidunt mauris eu risus.</small>
             </div>
             <div class="span6">

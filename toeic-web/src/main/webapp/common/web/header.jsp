@@ -4,9 +4,8 @@
     <div class="container">
         <div class="row">
             <!--LOGO-->
-            <div class="span3"><a class="brand" href="#"><img src="img/logo.png"/></a></div>
+            <div class="span3"><a class="brand" href="#"><img src="./template/web/img/toeic-logo.png"/></a></div>
             <!-- /LOGO -->
-
             <!-- MAIN NAVIGATION -->
             <div class="span9">
                 <div class="navbar  pull-right">
@@ -14,7 +13,7 @@
                         <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
                         <div class="nav-collapse collapse navbar-responsive-collapse">
                             <ul class="nav">
-                                <li class="active"><a href="index.html">Home</a></li>
+                                <li class="active"><a href="home.html">Home</a></li>
 
                                 <li class="dropdown">
                                     <a href="about.html" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +17,15 @@ import vn.myclass.core.web.common.WebConstant;
 /*
 	lấy foder or file từ bên ngoài project và ghi ra ngoiaf brownser
 */
+@WebServlet
 public class DisplayImage extends HttpServlet {
-	private final String imagesBase = "/" + WebConstant.FOLDER_UPLOAD;
+	// private final String imagesBase = "/" + WebConstant.FOLDER_UPLOAD;
+	// private final String imagesBase = req.getServletContext().getRealPath("/" + WebConstant.FOLDER_UPLOAD);
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String imagesBase = req.getServletContext().getRealPath("/" + WebConstant.FOLDER_UPLOAD);
 		String imageUrl = req.getRequestURI();
-		String relativeImagePath = imageUrl.substring(12); // imageUrl.substring("/repository/".length());
+		String relativeImagePath = imageUrl.substring("/repository/".length());
 		ServletOutputStream outStream;
 		outStream = resp.getOutputStream();
 		FileInputStream fin = new FileInputStream(imagesBase + File.separator + relativeImagePath);

@@ -50,9 +50,10 @@
                 			<br/>
                 			<div>
                 				<c:if test="${not empty item.pojo.image}">
-                                    <c:set var="image" value="/repository/${item.pojo.image}"/>
+<%--                                     <c:set var="image" value="/repository/${item.pojo.image}"/> --%>
+									<c:set var="image" value="/fileupload/${item.pojo.image}"/>
                                 </c:if>
-                                <img src="${image}" id="viewImage" width="150px" height="150px">
+                                <img src="<c:url value='${image}'/>" id="viewImage" width="150px" height="150px">
                 			</div>
                 			<br/>
                 			<div>

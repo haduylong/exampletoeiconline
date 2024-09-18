@@ -2,6 +2,7 @@ package vn.myclass.core.dto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class UserDTO implements Serializable {
 	private Integer userId;
@@ -15,6 +16,8 @@ public class UserDTO implements Serializable {
 	private Timestamp createdDate;
 	
 	private RoleDTO roleDTO; // khóa ngoại đến role entity dựa trên roleid
+	
+	private List<ResultDTO> results;
 
 	public Integer getUserId() {
 		return userId;
@@ -62,6 +65,14 @@ public class UserDTO implements Serializable {
 
 	public void setRoleDTO(RoleDTO roleDTO) {
 		this.roleDTO = roleDTO;
+	}
+
+	public List<ResultDTO> getResults() {
+		return results;
+	}
+
+	public void setResults(List<ResultDTO> results) {
+		this.results = results;
 	}
 
 	
