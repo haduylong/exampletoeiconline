@@ -36,3 +36,5 @@ This section discusses some information about the project. More details are show
 > toeic-core-dao-impl
 
 These three packages are used to implement Data Access Object pattern.
+
+Singleton pattern is implemented by class in different util folder.
