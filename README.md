@@ -8,7 +8,34 @@ Developing English Test website that helps:
 This section discusses some information about the project. More details are shown in [the report](ApplicationFile/assets/report.pdf).
 
 ## Demo
+### Sign in/up
+<img src="ApplicationFile/assets/login.png" alt="Login">
 
+### Admin
+<div style="display:flex";>
+    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin.png" alt="Admin">
+    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin_manage_listen_guideline.png" alt="admin_manage_listen_guideline">
+</div>
+<div style="display:flex";>
+    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin_manage_user.png" alt="admin_manage_user">
+    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin_manage_user_upload.png" alt="admin_manage_user_upload">
+</div>
+
+### User
+<div style="display:flex";>
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user.png" alt="User">
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exam.png" alt="user_exam">
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exam_2.png" alt="user_exam_2">
+</div>
+<div style="display:flex";>
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exam_3.png" alt="user_exam_3">
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exersite.png" alt="user_exersite">
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exersite_1.png" alt="user_exersite_1">
+</div>
+<div style="display:flex";>
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_guideline.png" alt="user_guideline">
+    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_guideline_1.png" alt="user_guideline_1">
+</div>
 
 ## Database
 <figure style="text-align: center;">
