@@ -13,28 +13,28 @@ This section discusses some information about the project. More details are show
 
 ### Admin
 <div style="display:flex";>
-    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin.png" alt="Admin">
-    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin_manage_listen_guideline.png" alt="admin_manage_listen_guideline">
+    <img style="width:49%;height:280px" src="ApplicationFile/assets/admin.png" alt="Admin">
+    <img style="width:49%;height:280px" src="ApplicationFile/assets/admin_manage_listen_guideline.png" alt="admin_manage_listen_guideline">
 </div>
 <div style="display:flex";>
-    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin_manage_user.png" alt="admin_manage_user">
-    <img style="width:49%;height:300px" src="ApplicationFile/assets/admin_manage_user_upload.png" alt="admin_manage_user_upload">
+    <img style="width:49%;height:280px" src="ApplicationFile/assets/admin_manage_user.png" alt="admin_manage_user">
+    <img style="width:49%;height:280px" src="ApplicationFile/assets/admin_manage_user_upload.png" alt="admin_manage_user_upload">
 </div>
 
 ### User
 <div style="display:flex";>
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user.png" alt="User">
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exam.png" alt="user_exam">
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exam_2.png" alt="user_exam_2">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user.png" alt="User">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_exam.png" alt="user_exam">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_exam_2.png" alt="user_exam_2">
 </div>
 <div style="display:flex";>
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exam_3.png" alt="user_exam_3">
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exersite.png" alt="user_exersite">
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_exersite_1.png" alt="user_exersite_1">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_exam_3.png" alt="user_exam_3">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_exersite.png" alt="user_exersite">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_exersite_1.png" alt="user_exersite_1">
 </div>
 <div style="display:flex";>
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_guideline.png" alt="user_guideline">
-    <img style="width:33%;height:170px" src="ApplicationFile/assets/user_guideline_1.png" alt="user_guideline_1">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_guideline.png" alt="user_guideline">
+    <img style="width:32%;height:170px" src="ApplicationFile/assets/user_guideline_1.png" alt="user_guideline_1">
 </div>
 
 ## Database
@@ -59,6 +59,6 @@ This section discusses some information about the project. More details are show
 * Model: persistence
 
 ## Design pattern
-<i>toeic-core-data, toeic-core-dao, toeic-core-dao-impl</i>, These three packages are used to implement Data Access Object pattern.
+<b><i>toeic-core-data, toeic-core-dao, toeic-core-dao-impl</i></b>. These three packages are used to implement Data Access Object pattern.
 
 Singleton pattern is implemented by class in different util folder.
